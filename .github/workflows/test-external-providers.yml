@@ -9,6 +9,8 @@ on:
 jobs:
   test-external-providers:
     runs-on: ubuntu-latest
+    env:
+      INFERENCE_MODEL: llama3.2:3b-instruct-fp16
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
@@ -28,12 +30,23 @@ jobs:
           uv sync
           uv pip install -e .
 
-      - name: Start Ramalama server in background
+      - name: Cache Ramalama store
+        id: ramalama-store-cache
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: ~/.local/share/ramalama
+          key: ramalama-store-${{ env.INFERENCE_MODEL }}
+
+      - name: Download model to serve with Ramalama
+        if: ${{ steps.ramalama-store-cache.outputs.cache-hit != 'true' }}
         run: |
           source .venv/bin/activate
-          ramalama pull llama3.2:3b-instruct-fp16
+          ramalama pull ${{ env.INFERENCE_MODEL }}
+
+      - name: Start Ramalama server in background
+        run: |
           # Start ramalama serve in background with logging
-          nohup uv run ramalama serve llama3.2:3b-instruct-fp16 > ramalama.log 2>&1 &
+          nohup uv run ramalama serve ${{ env.INFERENCE_MODEL }} > ramalama.log 2>&1 &
           RAMALAMA_PID=$!
           echo "Started Ramalama with PID: $RAMALAMA_PID"
 
@@ -43,7 +56,7 @@ jobs:
             echo "Attempt $i to connect to Ramalama..."
             if curl -s -X POST http://localhost:8080/v1/chat/completions \
               -H "Content-Type: application/json" \
-              -d '{"messages": [{"role": "user", "content": "Hello"}], "model": "llama3.2:3b-instruct-fp16"}' \
+              -d '{"messages": [{"role": "user", "content": "Hello"}], "model": "${{ env.INFERENCE_MODEL }}"}' \
               | grep -q "choices"; then
               echo "Ramalama server is up and responding!"
               break
@@ -61,7 +74,7 @@ jobs:
         run: |
           source .venv/bin/activate
           touch server.log
-          INFERENCE_MODEL=llama3.2:3b-instruct-fp16 LLAMA_STACK_LOG_FILE=server.log nohup uv run llama stack run run.yaml --image-type venv &
+          LLAMA_STACK_LOG_FILE=server.log nohup uv run llama stack run run.yaml --image-type venv &
 
       - name: Wait for Llama Stack server to be ready
         run: |
