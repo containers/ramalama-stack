@@ -1,7 +1,7 @@
 adapter:
   adapter_type: ramalama
   pip_packages: ["ramalama>=0.7.5"]
-  config_class: llama_stack_provider_ramalama.config.RamalamaImplConfig
-  module: llama_stack_provider_ramalama
+  config_class: ramalama_stack.config.RamalamaImplConfig
+  module: ramalama_stack
 api_dependencies: []
 optional_api_dependencies: []

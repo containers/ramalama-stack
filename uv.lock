@@ -784,7 +784,7 @@ wheels = [
 ]
 
 [[package]]
-name = "llama-stack-provider-ramalama"
+name = "ramalama-stack"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
