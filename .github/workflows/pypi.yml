@@ -36,7 +36,7 @@ jobs:
     name: Build and check packages
     runs-on: ubuntu-latest
     steps:
-      - name: "Harden Runner"
+      - name: Harden Runner
         uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
         with:
           egress-policy: audit
@@ -67,10 +67,10 @@ jobs:
     needs: build-package
 
     steps:
-      - name: "Harden Runner"
+      - name: Harden Runner
         uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
         with:
-          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+          egress-policy: audit
 
       - name: Fetch build artifacts
         uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
@@ -100,10 +100,10 @@ jobs:
     needs: build-package
 
     steps:
-      - name: "Harden Runner"
+      - name: Harden Runner
         uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
         with:
-          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+          egress-policy: audit
 
       - name: Fetch build artifacts
         uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
