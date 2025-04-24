@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=70.1.0", "setuptools_scm>=8", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "ramalama-stack"
 version = "0.1.0"
@@ -28,12 +32,20 @@ dependencies = [
 ]
 
 [project.urls]
+homepage = "https://ramalama.ai"
 Repository = "https://github.com/containers/ramalama-stack"
 Issues = "https://github.com/containers/ramalama-stack/issues"
 
+[tool.setuptools_scm]
+version_file = "src/ramalama_stack/_version.py"
+# do not include +gREV local version, required for Test PyPI upload
+local_scheme = "no-local-version"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
 [tool.ruff]
 extend-exclude = ["*.ipynb"]
-
-[build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"

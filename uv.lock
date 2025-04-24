@@ -738,7 +738,7 @@ wheels = [
 [[package]]
 name = "llama-stack"
 version = "0.2.1"
-source = { git = "https://github.com/meta-llama/llama-stack.git?rev=main#825ce39879f55acf77681e1a38b1e32366884c4b" }
+source = { git = "https://github.com/meta-llama/llama-stack.git?rev=main#e664ba91d87bf1735b3b4f1aae43772359c25ca3" }
 dependencies = [
     { name = "blobfile" },
     { name = "fire" },
@@ -781,53 +781,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/fc/1c/7d3ab0e57195f21f9cf121fba2692ee8dc792793e5c82aa702602dda9bea/llama_stack_client-0.2.2.tar.gz", hash = "sha256:a0323b18b9f68172c639755652654452b7e72e28e77d95db5146e25d83002d34", size = 241914 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/9e/68/bdd9cb19e2c151d9aa8bf91444dfa9675bc7913006d8e1e030fb79dbf8c5/llama_stack_client-0.2.2-py3-none-any.whl", hash = "sha256:2a4ef3edb861e9a3a734e6e5e65d9d3de1f10cd56c18d21d82253088d2758e53", size = 273307 },
-]
-
-[[package]]
-name = "ramalama-stack"
-version = "0.1.0"
-source = { editable = "." }
-dependencies = [
-    { name = "aiohttp" },
-    { name = "aiosqlite" },
-    { name = "autoevals" },
-    { name = "datasets" },
-    { name = "faiss-cpu" },
-    { name = "fastapi" },
-    { name = "httpx" },
-    { name = "llama-stack" },
-    { name = "numpy" },
-    { name = "openai" },
-    { name = "opentelemetry-exporter-otlp-proto-http" },
-    { name = "opentelemetry-sdk" },
-    { name = "pydantic" },
-    { name = "ramalama" },
-    { name = "requests" },
-    { name = "six" },
-    { name = "urllib3" },
-    { name = "uvicorn" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "aiohttp" },
-    { name = "aiosqlite" },
-    { name = "autoevals" },
-    { name = "datasets" },
-    { name = "faiss-cpu" },
-    { name = "fastapi" },
-    { name = "httpx" },
-    { name = "llama-stack", git = "https://github.com/meta-llama/llama-stack.git?rev=main" },
-    { name = "numpy" },
-    { name = "openai" },
-    { name = "opentelemetry-exporter-otlp-proto-http" },
-    { name = "opentelemetry-sdk" },
-    { name = "pydantic" },
-    { name = "ramalama", specifier = ">=0.7.5" },
-    { name = "requests" },
-    { name = "six" },
-    { name = "urllib3" },
-    { name = "uvicorn" },
 ]
 
 [[package]]
@@ -1830,6 +1783,53 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c3/5f/101079d8fc2ff8de8ac61892672450aab225153c340fc3c3b3b9544d52c6/ramalama-0.7.5.tar.gz", hash = "sha256:5c21753c181ca831276661cba25ac51d603c374943ed48aa7e2023ce58ae9df6", size = 96186 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/06/de/698a566fd2828b10eec33f887eadb8d59a755fb2eaed6aca44556a999e12/ramalama-0.7.5-py3-none-any.whl", hash = "sha256:06c5c408059c47795bee24e5eca70b50cb60ba4a5b904fef8bbd7b955a80d667", size = 119333 },
+]
+
+[[package]]
+name = "ramalama-stack"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "aiohttp" },
+    { name = "aiosqlite" },
+    { name = "autoevals" },
+    { name = "datasets" },
+    { name = "faiss-cpu" },
+    { name = "fastapi" },
+    { name = "httpx" },
+    { name = "llama-stack" },
+    { name = "numpy" },
+    { name = "openai" },
+    { name = "opentelemetry-exporter-otlp-proto-http" },
+    { name = "opentelemetry-sdk" },
+    { name = "pydantic" },
+    { name = "ramalama" },
+    { name = "requests" },
+    { name = "six" },
+    { name = "urllib3" },
+    { name = "uvicorn" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "aiohttp" },
+    { name = "aiosqlite" },
+    { name = "autoevals" },
+    { name = "datasets" },
+    { name = "faiss-cpu" },
+    { name = "fastapi" },
+    { name = "httpx" },
+    { name = "llama-stack", git = "https://github.com/meta-llama/llama-stack.git?rev=main" },
+    { name = "numpy" },
+    { name = "openai" },
+    { name = "opentelemetry-exporter-otlp-proto-http" },
+    { name = "opentelemetry-sdk" },
+    { name = "pydantic" },
+    { name = "ramalama", specifier = ">=0.7.5" },
+    { name = "requests" },
+    { name = "six" },
+    { name = "urllib3" },
+    { name = "uvicorn" },
 ]
 
 [[package]]
