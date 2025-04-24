@@ -173,4 +173,6 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# Anything additional
 distributions/
+src/ramalama_stack/_version.py
