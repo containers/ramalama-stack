@@ -30,3 +30,8 @@ repos:
             "--no-hashes",
             "--no-emit-project",
         ]
+
+-   repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.10.0
+    hooks:
+    -   id: shellcheck
