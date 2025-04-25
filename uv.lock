@@ -737,8 +737,8 @@ wheels = [
 
 [[package]]
 name = "llama-stack"
-version = "0.2.1"
-source = { git = "https://github.com/meta-llama/llama-stack.git?rev=main#e664ba91d87bf1735b3b4f1aae43772359c25ca3" }
+version = "0.2.3"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "blobfile" },
     { name = "fire" },
@@ -758,10 +758,14 @@ dependencies = [
     { name = "termcolor" },
     { name = "tiktoken" },
 ]
+sdist = { url = "https://files.pythonhosted.org/packages/21/2f/9dc80dfc95fbb58dbbf071c54652dfb2af9dde6a4d2b6de2515ffd6e1152/llama_stack-0.2.3.tar.gz", hash = "sha256:35e7c344c40b9a836dd24da81acd46cf1e336dfa99742b17f0d9e3e6cffba306", size = 3321637 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e6/71/21f0ff8855cdbedb64c82ac1c46a0c0a9f1d82bca06865659c4793ec7936/llama_stack-0.2.3-py3-none-any.whl", hash = "sha256:b0519e4f6656654786f8b7fe2464b8ca83df8cca7eaf8175f469a7e0eb881929", size = 3697930 },
+]
 
 [[package]]
 name = "llama-stack-client"
-version = "0.2.2"
+version = "0.2.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -778,9 +782,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/fc/1c/7d3ab0e57195f21f9cf121fba2692ee8dc792793e5c82aa702602dda9bea/llama_stack_client-0.2.2.tar.gz", hash = "sha256:a0323b18b9f68172c639755652654452b7e72e28e77d95db5146e25d83002d34", size = 241914 }
+sdist = { url = "https://files.pythonhosted.org/packages/c6/f6/1c23cd30bf9b97b88cc71645c3641ba720330e5a5edc94db6ee48fe66bfe/llama_stack_client-0.2.3.tar.gz", hash = "sha256:99ec7df30b096b5549517bf082b224c8add98df7f8f78a8f99a963677d4e3344", size = 251820 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9e/68/bdd9cb19e2c151d9aa8bf91444dfa9675bc7913006d8e1e030fb79dbf8c5/llama_stack_client-0.2.2-py3-none-any.whl", hash = "sha256:2a4ef3edb861e9a3a734e6e5e65d9d3de1f10cd56c18d21d82253088d2758e53", size = 273307 },
+    { url = "https://files.pythonhosted.org/packages/9d/fa/dfd66cb7204762af45df547ec0d03e11c5608e80163c62d9ef77b5ae1ddc/llama_stack_client-0.2.3-py3-none-any.whl", hash = "sha256:e443f183b04f0819586ea382c069bdd6f8400e97fbde5febe73400aa9efcd8e9", size = 288150 },
 ]
 
 [[package]]
@@ -1819,7 +1823,7 @@ requires-dist = [
     { name = "faiss-cpu" },
     { name = "fastapi" },
     { name = "httpx" },
-    { name = "llama-stack", git = "https://github.com/meta-llama/llama-stack.git?rev=main" },
+    { name = "llama-stack", specifier = ">=0.2.3" },
     { name = "numpy" },
     { name = "openai" },
     { name = "opentelemetry-exporter-otlp-proto-http" },

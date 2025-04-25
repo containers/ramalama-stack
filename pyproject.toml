@@ -11,7 +11,7 @@ license = {file = "LICENSE"}
 keywords = ["ramalama", "llama", "AI"]
 requires-python = ">=3.10"
 dependencies = [
-    "llama-stack @ git+https://github.com/meta-llama/llama-stack.git@main", # https://github.com/containers/ramalama-stack/issues/6
+    "llama-stack>=0.2.3",
     "ramalama>=0.7.5",
     "urllib3",
     "faiss-cpu",
