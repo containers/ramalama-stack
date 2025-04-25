@@ -63,6 +63,7 @@ class RamalamaInferenceAdapter(Inference, ModelsProtocolPrivate):
     async def initialize(self) -> None:
         logger.info(f"checking connectivity to Ramalama at `{self.url}`...")
         self.client = AsyncOpenAI(base_url=self.url, api_key="NO KEY")
+        logger.info(f"successfully connected to Ramalama at `{self.url}`...")
 
     async def shutdown(self) -> None:
         pass
