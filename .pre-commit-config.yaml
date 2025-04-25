@@ -12,6 +12,8 @@ repos:
     -   id: check-added-large-files
         args: ['--maxkb=1000']
     -   id: end-of-file-fixer
+    -   id: check-toml
+    -   id: check-shebang-scripts-are-executable
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.9.4
