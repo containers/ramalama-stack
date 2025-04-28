@@ -27,7 +27,7 @@ function start_and_wait_for_ramalama_server {
 
 function start_and_wait_for_llama_stack_server {
   # Start llama stack run with logging to 'lls.log'
-  LLAMA_STACK_LOG_FILE=lls.log nohup uv run llama stack run run.yaml --image-type venv &
+  LLAMA_STACK_LOG_FILE=lls.log nohup uv run llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml --image-type venv &
   LLS_PID=$!
   echo "Started Llama Stack with PID: $LLS_PID"
 

@@ -35,6 +35,12 @@ jobs:
         run: |
           uv sync
           uv pip install -e .
+          mkdir -p ~/.llama/distributions/ramalama/
+          cp -r src/ramalama_stack/providers.d/ ~/.llama/
+          cp src/ramalama_stack/ramalama-run.yaml ~/.llama/distributions/ramalama/ramalama-run.yaml
+
+      - name: Run 'test-build.sh'
+        run: $GITHUB_WORKSPACE/tests/test-build.sh
 
       - name: Cache Ramalama store
         id: ramalama-store-cache

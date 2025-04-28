@@ -1,0 +1,2 @@
+recursive-include ramalama_stack/providers.d *
+include ramalama_stack/ramalama-run.yaml
