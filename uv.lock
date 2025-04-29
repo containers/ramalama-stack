@@ -1779,14 +1779,14 @@ wheels = [
 
 [[package]]
 name = "ramalama"
-version = "0.7.5"
+version = "0.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "argcomplete" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c3/5f/101079d8fc2ff8de8ac61892672450aab225153c340fc3c3b3b9544d52c6/ramalama-0.7.5.tar.gz", hash = "sha256:5c21753c181ca831276661cba25ac51d603c374943ed48aa7e2023ce58ae9df6", size = 96186 }
+sdist = { url = "https://files.pythonhosted.org/packages/c5/31/e65e9f59d112899415da95c74c4bc52f0b2f25d1872bc1ad08ddd9d60789/ramalama-0.8.0.tar.gz", hash = "sha256:a5d0f209485a32981608601bfff877f8de6fdd1e0e3cce67c4b3a659103b2522", size = 101234 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/06/de/698a566fd2828b10eec33f887eadb8d59a755fb2eaed6aca44556a999e12/ramalama-0.7.5-py3-none-any.whl", hash = "sha256:06c5c408059c47795bee24e5eca70b50cb60ba4a5b904fef8bbd7b955a80d667", size = 119333 },
+    { url = "https://files.pythonhosted.org/packages/dc/48/cf31a6644547618ba1b8e896faf6952ebb3c3a01b6972da7465b5d666df5/ramalama-0.8.0-py3-none-any.whl", hash = "sha256:afec6a338085706b620a3272007dd328c8c7c6eeeff6b836f7dba0e8953e439d", size = 125811 },
 ]
 
 [[package]]
@@ -1829,7 +1829,7 @@ requires-dist = [
     { name = "opentelemetry-exporter-otlp-proto-http" },
     { name = "opentelemetry-sdk" },
     { name = "pydantic" },
-    { name = "ramalama", specifier = ">=0.7.5" },
+    { name = "ramalama", specifier = ">=0.8.0" },
     { name = "requests" },
     { name = "six" },
     { name = "urllib3" },
