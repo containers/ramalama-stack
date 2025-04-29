@@ -4,33 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ramalama-stack"
-version = "0.1.1"
 description = "Llama Stack Provider for Ramalama Inference"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 keywords = ["ramalama", "llama", "AI"]
 requires-python = ">=3.10"
-dependencies = [
-    "llama-stack>=0.2.3",
-    "ramalama>=0.8.0",
-    "urllib3",
-    "faiss-cpu",
-    "autoevals",
-    "six",
-    "pydantic",
-    "aiohttp",
-    "aiosqlite",
-    "datasets",
-    "fastapi",
-    "httpx",
-    "numpy",
-    "openai",
-    "opentelemetry-exporter-otlp-proto-http",
-    "opentelemetry-sdk",
-    "requests",
-    "uvicorn",
-]
+dynamic = ["dependencies", "optional-dependencies", "version"]
 
 [project.urls]
 homepage = "https://ramalama.ai"
