@@ -59,9 +59,9 @@ function start_and_wait_for_llama_stack_server {
 function test_ramalama_chat_completion {
   echo "===> test_ramalama_chat_completion: start"
   # shellcheck disable=SC2016
-  resp=$(curl -s -X POST http://localhost:8080/v1/chat/completions \
+  resp=$(curl -sS -X POST http://localhost:8080/v1/chat/completions \
     -H "Content-Type: application/json" \
-    -d '{"messages": [{"role": "user", "content": "Hello"}], "model": "$INFERENCE_MODEL"}')
+    -d "{\"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}], \"model\": \"$INFERENCE_MODEL\"}")
   if echo "$resp" | grep -q "choices"; then
     echo "===> test_ramalama_chat_completion: pass"
     return
@@ -90,9 +90,9 @@ function test_llama_stack_chat_completion {
 function test_llama_stack_openai_chat_completion {
   echo "===> test_llama_stack_openai_chat_completion: start"
   # shellcheck disable=SC2016
-  resp=$(curl -s -X POST http://localhost:8321/v1/openai/v1/chat/completions \
+  resp=$(curl -sS -X POST http://localhost:8321/v1/openai/v1/chat/completions \
     -H "Content-Type: application/json" \
-    -d '{"messages": [{"role": "user", "content": "Hello"}], "model": "$INFERENCE_MODEL"}')
+    -d "{\"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}], \"model\": \"$INFERENCE_MODEL\"}")
   if echo "$resp" | grep -q "choices"; then
     echo "===> test_llama_stack_openai_chat_completion: pass"
     return
