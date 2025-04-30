@@ -67,6 +67,8 @@ function test_ramalama_chat_completion {
     return
   else
     echo "===> test_ramalama_chat_completion: fail"
+    echo "RamaLama logs:"
+    cat ramalama.log
     exit 1
   fi
 }
@@ -79,6 +81,25 @@ function test_llama_stack_chat_completion {
     return
   else
     echo "===> test_llama_stack_chat_completion: fail"
+    echo "Server logs:"
+    cat lls.log
+    exit 1
+  fi
+}
+
+function test_llama_stack_openai_chat_completion {
+  echo "===> test_llama_stack_openai_chat_completion: start"
+  # shellcheck disable=SC2016
+  resp=$(curl -s -X POST http://localhost:8321/v1/openai/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{"messages": [{"role": "user", "content": "Hello"}], "model": "$INFERENCE_MODEL"}')
+  if echo "$resp" | grep -q "choices"; then
+    echo "===> test_llama_stack_openai_chat_completion: pass"
+    return
+  else
+    echo "===> test_llama_stack_openai_chat_completion: fail"
+    echo "Server logs:"
+    cat lls.log
     exit 1
   fi
 }
@@ -89,6 +110,7 @@ main() {
   test_ramalama_chat_completion
   start_and_wait_for_llama_stack_server
   test_llama_stack_chat_completion
+  test_llama_stack_openai_chat_completion
   echo "===> 'test-external-providers' completed successfully!"
 }
 
