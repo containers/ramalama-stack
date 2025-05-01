@@ -40,7 +40,7 @@ jobs:
           uv pip install ramalama-stack
 
           # update llama-stack version to main branch
-          uv pip install git+https://github.com/meta-llama/ramalama-stack.git@main
+          uv pip install git+https://github.com/meta-llama/llama-stack.git@main
 
       - name: Run 'test-build.sh'
         run: $GITHUB_WORKSPACE/tests/test-build.sh
