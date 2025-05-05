@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
-name: Build, test, and upload PyPI package
+name: Build and publish PyPI package
 
 on:
   push:

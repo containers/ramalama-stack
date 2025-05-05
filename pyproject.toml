@@ -4,7 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ramalama-stack"
-description = "Llama Stack Provider for Ramalama Inference"
+description = "An external provider for Llama Stack allowing for the use of RamaLama for inference."
+authors = [{ name = "The RamaLama Stack Authors" }]
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
