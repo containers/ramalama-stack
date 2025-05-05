@@ -13,6 +13,6 @@ def get_provider_spec() -> ProviderSpec:
             adapter_type="ramalama",
             pip_packages=["ramalama>=0.8.1", "faiss-cpu"],
             config_class="config.RamalamaImplConfig",
-            module="ramalama_adapter",
+            module="ramalama_stack",
         ),
     )
