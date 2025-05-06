@@ -27,6 +27,16 @@ This will install Llama Stack and RamaLama as well if they are not installed alr
 
 3. You can then run the RamaLama external provider via `llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml`
 
+> [!NOTE]
+> You can also run the RamaLama external provider inside of a container via [Podman](https://podman.io/)
+> ```bash
+> podman run \
+>  --net=host \
+>  --env RAMALAMA_URL=http://0.0.0.0:8080 \
+>  --env INFERENCE_MODEL=$INFERENCE_MODEL \
+>  ramalama/llama-stack
+> ```
+
 This will start a Llama Stack server which will use port 8321 by default. You can test this works by configuring the Llama Stack Client to run against this server and
 sending a test request.
 - If your client is running on the same machine as the server, you can run `llama-stack-client configure --endpoint http://0.0.0.0:8321 --api-key none`
