@@ -57,15 +57,14 @@ function start_and_wait_for_llama_stack_server {
 }
 
 function start_and_wait_for_llama_stack_container {
-  # Start llama stack run with logging to 'lls.log'
+  # Start llama stack run
   podman run \
     -d \
     --net=host \
     --env INFERENCE_MODEL="$INFERENCE_MODEL" \
     --env RAMALAMA_URL=http://0.0.0.0:8080 \
-    --env LLAMA_STACK_LOG_FILE=lls.log \
     --name llama-stack \
-    ramalama/llama-stack
+    quay.io/ramalama/llama-stack:latest
   LLS_PID=$!
   echo "Started Llama Stack container with PID: $LLS_PID"
 
@@ -76,21 +75,21 @@ function start_and_wait_for_llama_stack_container {
     resp=$(curl -s http://localhost:8321/v1/health)
     if [ "$resp" == '{"status":"OK"}' ]; then
       echo "Llama Stack server is up!"
-      if podman exec llama-stack cat lls.log | grep -q -e "remote::ramalama from .*providers.d/remote/inference/ramalama.yaml"; then
+      if podman logs llama-stack | grep -q -e "remote::ramalama from .*providers.d/remote/inference/ramalama.yaml"; then
         echo "Llama Stack server is using RamaLama provider"
         return
       else
         echo "Llama Stack server is not using RamaLama provider"
-        echo "Server logs:"
-        podman exec llama-stack cat lls.log
+        echo "Container logs:"
+        podman logs llama-stack
         exit 1
       fi
     fi
     sleep 1
   done
   echo "Llama Stack server failed to start"
-  echo "Server logs:"
-  podman exec llama-stack cat lls.log
+  echo "Container logs:"
+  podman logs llama-stack
   exit 1
 }
 
@@ -120,7 +119,7 @@ function test_llama_stack_chat_completion {
   else
     echo "===> test_llama_stack_chat_completion: fail"
     echo "Server logs:"
-    cat lls.log
+    cat lls.log || podman logs llama-stack
     exit 1
   fi
 }
@@ -137,7 +136,7 @@ function test_llama_stack_openai_chat_completion {
   else
     echo "===> test_llama_stack_openai_chat_completion: fail"
     echo "Server logs:"
-    cat lls.log
+    cat lls.log || podman logs llama-stack
     exit 1
   fi
 }
