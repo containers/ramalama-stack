@@ -791,7 +791,7 @@ wheels = [
 
 [[package]]
 name = "llama-stack"
-version = "0.2.5"
+version = "0.2.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "blobfile" },
@@ -814,14 +814,14 @@ dependencies = [
     { name = "termcolor" },
     { name = "tiktoken" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/99/b0/c9c653bbc036fb3e87331f94c8d2ca2fb7b29821b0e48e1c8e45fbbf38e1/llama_stack-0.2.5.tar.gz", hash = "sha256:15827a10eef6b110c5243fb1a87900f4db27d5a81d786fdffcc5c8d454d2b90b", size = 3329498, upload_time = "2025-05-03T21:30:37.078Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0e/fc/c695a57989a08ffa215754f797a0ca96df08a3f5010ddd698fdc3e7ae54d/llama_stack-0.2.6.tar.gz", hash = "sha256:787633c786df45e570a490b084e36e609b5ceab7b010ccb7854e11e858e4a0df", size = 3331481, upload_time = "2025-05-12T18:01:40.098Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/44/76/4b87f8ed46fcc5c3fec7c24f2bdaec13ed42020a53ff33909be261f90432/llama_stack-0.2.5-py3-none-any.whl", hash = "sha256:ee969712ab3d90f4bd456cab4180e9047abc685b0929ee7e101e3eb253b295be", size = 3713932, upload_time = "2025-05-03T21:30:34.841Z" },
+    { url = "https://files.pythonhosted.org/packages/0b/38/651e0f1d2269d167e1040805bd843c023485f3cb802c9f001dff82f4ef35/llama_stack-0.2.6-py3-none-any.whl", hash = "sha256:d7e921a7883d6729a34efe116c81e62bb15b624544e6c3ed4e8393d1051e770b", size = 3718821, upload_time = "2025-05-12T18:01:38.227Z" },
 ]
 
 [[package]]
 name = "llama-stack-client"
-version = "0.2.5"
+version = "0.2.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -838,9 +838,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/38/4b/d4758a95a5eed8ad821dd782a3f34843d79dc9adc6bd6e01b13cbec904ca/llama_stack_client-0.2.5.tar.gz", hash = "sha256:509c6336027a13b8b89780a85bd1cd45b3659de3929357fd9d8113ea0d6a3f05", size = 259262, upload_time = "2025-05-03T21:30:29.177Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/14/1e/14e549b5fb7ac09347686f6f1c28ee2bcd16cf575aab934687f20b5cec12/llama_stack_client-0.2.6.tar.gz", hash = "sha256:a03a2b0bd43bdb0083378f481614bb65592d7f669a821d0b618b1dfc7d1c8325", size = 259270, upload_time = "2025-05-12T18:01:30.537Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e8/ac/50eb130fa6126a0a3a1f945b61dc5b3bb11f7badbe877ce0112321851d32/llama_stack_client-0.2.5-py3-none-any.whl", hash = "sha256:504abe51bdd1da658e00f720997e7845d10ca1eb74de52af90f82bfbce8e2e67", size = 292727, upload_time = "2025-05-03T21:30:27.388Z" },
+    { url = "https://files.pythonhosted.org/packages/e6/af/93895ce23d3c8e676004e7b69deaea726e81acaaf9cf00090baace904c03/llama_stack_client-0.2.6-py3-none-any.whl", hash = "sha256:9f39dea2dba6767b654d5119f99dfc2b89f838470a547bc5d8def5a230decfcd", size = 292726, upload_time = "2025-05-12T18:01:29.14Z" },
 ]
 
 [[package]]
@@ -1865,14 +1865,14 @@ wheels = [
 
 [[package]]
 name = "ramalama"
-version = "0.8.2"
+version = "0.8.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "argcomplete" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/40/05/2b6088c894e37ca4215e93e41219348678f850331be3a2843cd4baefa5d3/ramalama-0.8.2.tar.gz", hash = "sha256:21e1feb44f62d9a2bcc600f2ab71477966fa70d5797fee17c011edf08cae06ec", size = 122644, upload_time = "2025-05-05T15:36:04.337Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d0/e1/b76be2c5104562346a05027d8314e2765ae91578fdf7960813e40a599bb5/ramalama-0.8.3.tar.gz", hash = "sha256:14579571e0f890bcd3f153d163107f5a8d2af1fc4729ed280772f59d2ffa0ad0", size = 124900, upload_time = "2025-05-12T17:20:39.937Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/86/ed/a64ecb903e1001d36973fb615c6e8919ee715dc55eb660c05f4abd88b264/ramalama-0.8.2-py3-none-any.whl", hash = "sha256:062046122b79c14d58de73dc60cf3cec36654da2dad28f66c5508c0bc6f99016", size = 131852, upload_time = "2025-05-05T15:36:03.161Z" },
+    { url = "https://files.pythonhosted.org/packages/ad/22/fb802565bc24689750bf2574f0018dd8181315566b74da320d4e7d07ed14/ramalama-0.8.3-py3-none-any.whl", hash = "sha256:09259c3766cfa14ee28404886ba9edeab0d9e428ded088d0786568488276b07b", size = 133556, upload_time = "2025-05-12T17:20:38.392Z" },
 ]
 
 [[package]]
@@ -1908,13 +1908,13 @@ requires-dist = [
     { name = "faiss-cpu" },
     { name = "fastapi" },
     { name = "httpx" },
-    { name = "llama-stack", specifier = ">=0.2.5" },
+    { name = "llama-stack", specifier = ">=0.2.6" },
     { name = "numpy" },
     { name = "openai" },
     { name = "opentelemetry-exporter-otlp-proto-http" },
     { name = "opentelemetry-sdk" },
     { name = "pydantic" },
-    { name = "ramalama", specifier = ">=0.8.2" },
+    { name = "ramalama", specifier = ">=0.8.3" },
     { name = "requests" },
     { name = "six" },
     { name = "urllib3" },
