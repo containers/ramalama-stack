@@ -76,6 +76,21 @@ jobs:
       - name: Run 'test-external-providers.sh'
         run: $GITHUB_WORKSPACE/tests/test-external-providers.sh
 
+      - name: Checkout meta-llama/llama-stack
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: meta-llama/llama-stack
+          path: llama-stack-tests
+
+      - name: Run Integration Tests
+        run: |
+          cd llama-stack-tests
+          uv sync --extra test --extra dev
+          uv run pytest -v tests/integration/inference --stack-config="http://localhost:8321" \
+            -k "not(builtin_tool or safety_with_image or code_interpreter or test_rag)" \
+            --text-model="${{ env.INFERENCE_MODEL }}" \
+            --embedding-model=all-MiniLM-L6-v2
+
       - name: Upload logs
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
