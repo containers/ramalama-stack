@@ -129,6 +129,7 @@ async def convert_chat_completion_request(
             payload.update(
                 tool_choice=request.tool_config.tool_choice.value
             )  # we cannot include tool_choice w/o tools, server will complain
+        payload.update(stream=False)  # llama.cpp does not support streaming tool calls
 
     if request.logprobs:
         payload.update(logprobs=True)
