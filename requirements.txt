@@ -1,5 +1,5 @@
-ramalama>=0.8.2
-llama-stack>=0.2.5
+ramalama>=0.8.3
+llama-stack>=0.2.6
 urllib3
 faiss-cpu
 autoevals
