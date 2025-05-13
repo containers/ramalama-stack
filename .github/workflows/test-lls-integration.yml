@@ -53,12 +53,6 @@ jobs:
           # update llama-stack version to main branch
           uv pip install git+https://github.com/meta-llama/llama-stack.git@main
 
-          # temporary hack for file writing that should be done by the pip setup script
-          # https://github.com/containers/ramalama-stack/issues/53
-          mkdir -p ~/.llama/distributions/ramalama/
-          cp -r $GITHUB_WORKSPACE/src/ramalama_stack/providers.d/ ~/.llama/
-          cp $GITHUB_WORKSPACE/src/ramalama_stack/ramalama-run.yaml ~/.llama/distributions/ramalama/ramalama-run.yaml
-
       - name: Run 'test-build.sh'
         run: $GITHUB_WORKSPACE/tests/test-build.sh
 
