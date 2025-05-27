@@ -54,7 +54,7 @@ This section describes how to make a contribution to ramalama-stack.
 
 ### Prepare your environment
 
-The minimum version of Python required to use ramalama-stack is Python 3.10
+The minimum version of Python required to use ramalama-stack is Python 3.11
 
 ### Fork and clone ramalama-stack
 

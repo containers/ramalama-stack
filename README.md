@@ -17,8 +17,8 @@ This will install Llama Stack and RamaLama as well if they are not installed alr
 > [!WARNING]
 > The following workaround is currently needed to run this provider - see https://github.com/containers/ramalama-stack/issues/53 for more details
 > ```bash
-> curl --create-dirs --output ~/.llama/providers.d/remote/inference/ramalama.yaml https://raw.githubusercontent.com/containers/ramalama-stack/refs/tags/v0.1.3/src/ramalama_stack/providers.d/remote/inference/ramalama.yaml
-> curl --create-dirs --output ~/.llama/distributions/ramalama/ramalama-run.yaml https://raw.githubusercontent.com/containers/ramalama-stack/refs/tags/v0.1.3/src/ramalama_stack/ramalama-run.yaml
+> curl --create-dirs --output ~/.llama/providers.d/remote/inference/ramalama.yaml https://raw.githubusercontent.com/containers/ramalama-stack/refs/tags/v0.1.4/src/ramalama_stack/providers.d/remote/inference/ramalama.yaml
+> curl --create-dirs --output ~/.llama/distributions/ramalama/ramalama-run.yaml https://raw.githubusercontent.com/containers/ramalama-stack/refs/tags/v0.1.4/src/ramalama_stack/ramalama-run.yaml
 > ```
 
 1. First you will need a RamaLama server running - see [the RamaLama project](https://github.com/containers/ramalama) docs for more information.
@@ -34,7 +34,7 @@ This will install Llama Stack and RamaLama as well if they are not installed alr
 >  --net=host \
 >  --env RAMALAMA_URL=http://0.0.0.0:8080 \
 >  --env INFERENCE_MODEL=$INFERENCE_MODEL \
->  ramalama/llama-stack
+>  quay.io/ramalama/llama-stack
 > ```
 
 This will start a Llama Stack server which will use port 8321 by default. You can test this works by configuring the Llama Stack Client to run against this server and
