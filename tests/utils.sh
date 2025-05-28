@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function start_and_wait_for_ramalama_server {
-  # Start ramalama serve in background with logging to 'ramalama.log'
-  nohup uv run ramalama serve "$INFERENCE_MODEL" > ramalama.log 2>&1 &
+  # Start ramalama serve in background with logging to 'ramalama-$INFERENCE_MODEL_NO_COLON.log'
+  nohup uv run ramalama serve "$INFERENCE_MODEL" > "ramalama-$INFERENCE_MODEL_NO_COLON.log" 2>&1 &
   RAMALAMA_PID=$!
   echo "Started RamaLama with PID: $RAMALAMA_PID"
 
@@ -18,7 +18,7 @@ function start_and_wait_for_ramalama_server {
     if [ "$i" -eq 60 ]; then
       echo "RamaLama server failed to start or respond"
       echo "RamaLama logs:"
-      cat ramalama.log
+      cat "ramalama-$INFERENCE_MODEL_NO_COLON.log"
       exit 1
     fi
     sleep 1
@@ -26,8 +26,8 @@ function start_and_wait_for_ramalama_server {
 }
 
 function start_and_wait_for_llama_stack_server {
-  # Start llama stack run with logging to 'lls.log'
-  LLAMA_STACK_LOG_FILE=lls.log nohup uv run llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml --image-type venv &
+  # Start llama stack run with logging to 'lls-$INFERENCE_MODEL_NO_COLON.log'
+  LLAMA_STACK_LOG_FILE="lls-$INFERENCE_MODEL_NO_COLON.log" nohup uv run llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml --image-type venv &
   LLS_PID=$!
   echo "Started Llama Stack server with PID: $LLS_PID"
 
@@ -38,13 +38,13 @@ function start_and_wait_for_llama_stack_server {
     resp=$(curl -s http://localhost:8321/v1/health)
     if [ "$resp" == '{"status":"OK"}' ]; then
       echo "Llama Stack server is up!"
-      if grep -q -e "remote::ramalama from .*providers.d/remote/inference/ramalama.yaml" lls.log; then
+      if grep -q -e "remote::ramalama from .*providers.d/remote/inference/ramalama.yaml" "lls-$INFERENCE_MODEL_NO_COLON.log"; then
         echo "Llama Stack server is using RamaLama provider"
         return
       else
         echo "Llama Stack server is not using RamaLama provider"
         echo "Server logs:"
-        cat lls.log
+        cat "lls-$INFERENCE_MODEL_NO_COLON.log"
         exit 1
       fi
     fi
@@ -52,7 +52,7 @@ function start_and_wait_for_llama_stack_server {
   done
   echo "Llama Stack server failed to start"
   echo "Server logs:"
-  cat lls.log
+  cat "lls-$INFERENCE_MODEL_NO_COLON.log"
   exit 1
 }
 
@@ -105,7 +105,7 @@ function test_ramalama_chat_completion {
   else
     echo "===> test_ramalama_chat_completion: fail"
     echo "RamaLama logs:"
-    cat ramalama.log
+    cat "ramalama-$INFERENCE_MODEL_NO_COLON.log"
     exit 1
   fi
 }
@@ -119,7 +119,7 @@ function test_llama_stack_chat_completion {
   else
     echo "===> test_llama_stack_chat_completion: fail"
     echo "Server logs:"
-    cat lls.log || podman logs llama-stack
+    cat "lls-$INFERENCE_MODEL_NO_COLON.log" || podman logs llama-stack
     exit 1
   fi
 }
@@ -136,7 +136,7 @@ function test_llama_stack_openai_chat_completion {
   else
     echo "===> test_llama_stack_openai_chat_completion: fail"
     echo "Server logs:"
-    cat lls.log || podman logs llama-stack
+    cat "lls-$INFERENCE_MODEL_NO_COLON.log" || podman logs llama-stack
     exit 1
   fi
 }

@@ -11,6 +11,8 @@ main() {
 }
 
 TEST_UTILS=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+# shellcheck disable=SC2153,SC2034
+INFERENCE_MODEL_NO_COLON=$(echo "$INFERENCE_MODEL" | tr ':' '_')
 # shellcheck disable=SC1091
 source "$TEST_UTILS/utils.sh"
 main "$@"
