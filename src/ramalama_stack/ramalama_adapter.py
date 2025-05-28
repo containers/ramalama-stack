@@ -191,7 +191,6 @@ class RamalamaInferenceAdapter(Inference, ModelsProtocolPrivate):
         )
 
     async def register_model(self, model: Model) -> Model:
-        model = await self.register_helper.register_model(model)
         res = await self.client.models.list()
         available_models = [m.id async for m in res]
         # Ramalama handles paths on MacOS and Linux differently
