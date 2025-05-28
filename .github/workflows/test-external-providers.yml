@@ -32,6 +32,7 @@ jobs:
     name: test-external-providers
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         inference_model:
           - 'llama3.2:3b-instruct-fp16'

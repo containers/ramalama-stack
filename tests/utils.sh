@@ -93,6 +93,21 @@ function start_and_wait_for_llama_stack_container {
   exit 1
 }
 
+function test_ramalama_models {
+  echo "===> test_ramalama_models: start"
+  # shellcheck disable=SC2016
+  resp=$(curl -sS http://localhost:8080/v1/models)
+  if echo "$resp" | grep -q "$INFERENCE_MODEL"; then
+    echo "===> test_ramalama_models: pass"
+    return
+  else
+    echo "===> test_ramalama_models: fail"
+    echo "RamaLama logs:"
+    cat "ramalama-$INFERENCE_MODEL_NO_COLON.log"
+    exit 1
+  fi
+}
+
 function test_ramalama_chat_completion {
   echo "===> test_ramalama_chat_completion: start"
   # shellcheck disable=SC2016
@@ -106,6 +121,35 @@ function test_ramalama_chat_completion {
     echo "===> test_ramalama_chat_completion: fail"
     echo "RamaLama logs:"
     cat "ramalama-$INFERENCE_MODEL_NO_COLON.log"
+    exit 1
+  fi
+}
+
+function test_llama_stack_models {
+  echo "===> test_llama_stack_models: start"
+  nohup uv run llama-stack-client configure --endpoint http://localhost:8321 --api-key none
+  if nohup uv run llama-stack-client models list | grep -q "$INFERENCE_MODEL"; then
+    echo "===> test_llama_stack_models: pass"
+    return
+  else
+    echo "===> test_llama_stack_models: fail"
+    echo "Server logs:"
+    cat "lls-$INFERENCE_MODEL_NO_COLON.log" || podman logs llama-stack
+    exit 1
+  fi
+}
+
+function test_llama_stack_openai_models {
+  echo "===> test_llama_stack_openai_models: start"
+  # shellcheck disable=SC2016
+  resp=$(curl -sS http://localhost:8321/v1/openai/v1/models)
+  if echo "$resp" | grep -q "$INFERENCE_MODEL"; then
+    echo "===> test_llama_stack_openai_models: pass"
+    return
+  else
+    echo "===> test_llama_stack_openai_models: fail"
+    echo "Server logs:"
+    cat "lls-$INFERENCE_MODEL_NO_COLON.log" || podman logs llama-stack
     exit 1
   fi
 }

@@ -3,8 +3,11 @@
 main() {
   echo "===> starting 'test-external-providers'..."
   start_and_wait_for_ramalama_server
+  test_ramalama_models
   test_ramalama_chat_completion
   start_and_wait_for_llama_stack_server
+  test_llama_stack_models
+  test_llama_stack_openai_models
   test_llama_stack_chat_completion
   test_llama_stack_openai_chat_completion
   echo "===> 'test-external-providers' completed successfully!"
