@@ -35,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         inference_model:
-          - 'llama3.2:3b-instruct-fp16'
+          - 'llama3.2:3b'
           - 'granite3.2:2b'
     env:
       INFERENCE_MODEL: ${{ matrix.inference_model }}
