@@ -1,7 +1,7 @@
 ramalama>=0.8.5
 llama-stack>=0.2.7
 urllib3
-faiss-cpu
+pymilvus
 autoevals
 six
 pydantic
