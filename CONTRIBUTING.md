@@ -67,12 +67,29 @@ $ cd ./ramalama-stack/
 
 ### Install required tools
 
-`venv` allows you to create a virtual environment and `pip` allows you to install needed development tools (e.g. pre-commit):
-```shell
-$ python -m venv venv
-$ source venv/bin/activate
-$ (venv) pip install -r requirements-dev.txt
+We use [uv](https://github.com/astral-sh/uv) to manage python dependencies and virtual environments.
+You can install `uv` by following this [guide](https://docs.astral.sh/uv/getting-started/installation/).
+
+You can install the dependencies by running:
+
+```bash
+cd ramalama-stack
+uv sync
+source .venv/bin/activate
 ```
+
+> [!NOTE]
+> You can use a specific version of Python with `uv` by adding the `--python <version>` flag (e.g. `--python 3.11`)
+> Otherwise, `uv` will automatically select a Python version according to the `requires-python` section of the `pyproject.toml`.
+> For more info, see the [uv docs around Python versions](https://docs.astral.sh/uv/concepts/python-versions/).
+
+### Adding dependencies
+
+Please add dependencies using the [uv-documented approach](https://docs.astral.sh/uv/concepts/projects/dependencies/#adding-dependencies).
+
+This should update both the `pyproject.toml` and the `uv.lock` file.
+
+The `requirements.txt` file should be updated as well by `pre-commit` - you can also do this manually via `uv export --frozen --no-hashes --no-emit-project --no-default-groups --output-file=requirements.txt`.
 
 ## Testing
 
