@@ -28,6 +28,8 @@ attrs==25.3.0
     #   referencing
 autoevals==0.0.129
     # via ramalama-stack
+blobfile==3.0.0
+    # via ramalama-stack
 braintrust-core==0.0.59
     # via autoevals
 certifi==2025.4.26
@@ -68,6 +70,7 @@ fastapi==0.115.12
     # via ramalama-stack
 filelock==3.18.0
     # via
+    #   blobfile
     #   datasets
     #   huggingface-hub
 fire==0.7.0
@@ -125,6 +128,8 @@ llama-stack==0.2.9
     # via ramalama-stack
 llama-stack-client==0.2.9
     # via llama-stack
+lxml==5.4.0
+    # via blobfile
 markdown-it-py==3.0.0
     # via rich
 markupsafe==3.0.2
@@ -201,6 +206,8 @@ pyasn1==0.6.1
     # via
     #   python-jose
     #   rsa
+pycryptodomex==3.23.0
+    # via blobfile
 pydantic==2.11.5
     # via
     #   fastapi
@@ -309,6 +316,7 @@ ujson==5.10.0
     # via pymilvus
 urllib3==2.4.0
     # via
+    #   blobfile
     #   ramalama-stack
     #   requests
 uvicorn==0.34.3
