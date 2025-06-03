@@ -9,6 +9,9 @@ on:
       - 'src/ramalama_stack/**'
       - 'tests/**'
       - '.github/workflows/test-external-providers.yml'
+      - pyproject.toml
+      - requirements.txt
+      - uv.lock
   pull_request:
     branches:
       - main
@@ -16,6 +19,9 @@ on:
       - 'src/ramalama_stack/**'
       - 'tests/**'
       - '.github/workflows/test-external-providers.yml'
+      - pyproject.toml
+      - requirements.txt
+      - uv.lock
 
 env:
   LC_ALL: en_US.UTF-8
