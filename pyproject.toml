@@ -11,7 +11,32 @@ license = "Apache-2.0"
 license-files = ["LICENSE"]
 keywords = ["ramalama", "llama", "AI"]
 requires-python = ">=3.11"
-dynamic = ["dependencies", "optional-dependencies", "version"]
+dynamic = ["version"]
+dependencies = [
+    "aiohttp>=3.12.2",
+    "aiosqlite>=0.21.0",
+    "autoevals>=0.0.129",
+    "datasets>=3.6.0",
+    "fastapi>=0.115.12",
+    "httpx>=0.28.1",
+    "llama-stack>=0.2.7",
+    "numpy>=2.2.6",
+    "openai>=1.82.0",
+    "opentelemetry-exporter-otlp-proto-http>=1.33.1",
+    "opentelemetry-sdk>=1.33.1",
+    "pydantic>=2.11.5",
+    "pymilvus>=2.5.10",
+    "ramalama>=0.8.5",
+    "requests>=2.32.3",
+    "six>=1.17.0",
+    "urllib3>=2.4.0",
+    "uvicorn>=0.34.2",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=3.0.4,<4.0",
+]
 
 [project.urls]
 homepage = "https://ramalama.ai"
@@ -29,9 +54,6 @@ include-package-data = true
 
 [tool.setuptools.package-data]
 "ramalama_stack" = ["providers.d/**/*", "ramalama-run.yaml"]
-
-[tool.setuptools.dynamic]
-dependencies = { file = ["requirements.txt"] }
 
 [tool.ruff]
 extend-exclude = ["*.ipynb"]

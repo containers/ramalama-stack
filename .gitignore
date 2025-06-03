@@ -176,3 +176,4 @@ cython_debug/
 # Anything additional
 distributions/
 src/ramalama_stack/_version.py
+.python-version
