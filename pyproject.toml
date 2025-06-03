@@ -32,6 +32,7 @@ dependencies = [
     "pymilvus>=2.5.10",
     "ramalama==0.9.0",
     "requests>=2.32.3",
+    "sentence-transformers>=4.1.0",
     "six>=1.17.0",
     "sqlalchemy>=2.0.41",
     "torch>=2.7.0",
