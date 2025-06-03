@@ -21,6 +21,7 @@ dependencies = [
     "fastapi>=0.115.12",
     "httpx>=0.28.1",
     "llama-stack>=0.2.7",
+    "mcp>=1.9.2",
     "numpy>=2.2.6",
     "openai>=1.82.0",
     "opentelemetry-exporter-otlp-proto-http>=1.33.1",
