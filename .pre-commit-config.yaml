@@ -16,14 +16,14 @@ repos:
     -   id: check-shebang-scripts-are-executable
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.7
+    rev: v0.11.12
     hooks:
     -   id: ruff
         args: [ --fix ]
     -   id: ruff-format
 
 -   repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.6.17
+    rev: 0.7.9
     hooks:
     -   id: uv-lock
     -   id: uv-export
@@ -31,6 +31,8 @@ repos:
             "--frozen",
             "--no-hashes",
             "--no-emit-project",
+            "--no-default-groups",
+            "--output-file=requirements.txt"
         ]
 
 -   repo: https://github.com/koalaman/shellcheck-precommit
