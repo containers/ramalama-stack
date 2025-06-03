@@ -62,7 +62,6 @@ jobs:
       - name: Set Up Environment and Install Dependencies
         run: |
           uv sync
-          uv pip install -e .
 
           # temporary hack for file writing that should be done by the pip setup script
           # https://github.com/containers/ramalama-stack/issues/53
