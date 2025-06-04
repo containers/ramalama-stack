@@ -33,6 +33,7 @@ dependencies = [
     "requests>=2.32.3",
     "six>=1.17.0",
     "sqlalchemy>=2.0.41",
+    "torch>=2.7.0",
     "urllib3>=2.4.0",
     "uvicorn>=0.34.2",
 ]
