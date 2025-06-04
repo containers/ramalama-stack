@@ -31,6 +31,7 @@ dependencies = [
     "ramalama>=0.8.5",
     "requests>=2.32.3",
     "six>=1.17.0",
+    "sqlalchemy>=2.0.41",
     "urllib3>=2.4.0",
     "uvicorn>=0.34.2",
 ]
