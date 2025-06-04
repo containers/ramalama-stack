@@ -26,6 +26,7 @@ dependencies = [
     "openai>=1.82.0",
     "opentelemetry-exporter-otlp-proto-http>=1.33.1",
     "opentelemetry-sdk>=1.33.1",
+    "psutil>=7.0.0",
     "pydantic>=2.11.5",
     "pymilvus>=2.5.10",
     "ramalama>=0.8.5",

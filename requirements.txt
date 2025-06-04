@@ -207,6 +207,8 @@ protobuf==5.29.5
     #   googleapis-common-protos
     #   opentelemetry-proto
     #   pymilvus
+psutil==7.0.0
+    # via ramalama-stack
 pyaml==25.5.0
     # via llama-stack-client
 pyarrow==20.0.0
