@@ -5,6 +5,7 @@ apis:
 - datasetio
 - eval
 - inference
+- post_training
 - safety
 - scoring
 - telemetry
@@ -16,9 +17,6 @@ providers:
     provider_type: remote::ramalama
     config:
       url: ${env.RAMALAMA_URL:http://localhost:8080}
-  - provider_id: sentence-transformers
-    provider_type: inline::sentence-transformers
-    config: {}
   vector_io:
   - provider_id: milvus
     provider_type: inline::milvus
@@ -37,13 +35,16 @@ providers:
         type: sqlite
         namespace: null
         db_path: ${env.SQLITE_STORE_DIR:~/.llama/distributions/ramalama}/agents_store.db
+      responses_store:
+        type: sqlite
+        db_path: ${env.SQLITE_STORE_DIR:~/.llama/distributions/ramalama}/responses_store.db
   telemetry:
   - provider_id: meta-reference
     provider_type: inline::meta-reference
     config:
       service_name: "${env.OTEL_SERVICE_NAME:\u200B}"
       sinks: ${env.TELEMETRY_SINKS:console,sqlite}
-      sqlite_db_path: ${env.SQLITE_DB_PATH:~/.llama/distributions/ramalama/trace_store.db}
+      sqlite_db_path: ${env.SQLITE_DB_PATH:~/.llama/distributions/ramalama}/trace_store.db
   eval:
   - provider_id: meta-reference
     provider_type: inline::meta-reference
@@ -78,6 +79,13 @@ providers:
     provider_type: inline::braintrust
     config:
       openai_api_key: ${env.OPENAI_API_KEY:}
+  post_training:
+  - provider_id: huggingface
+    provider_type: inline::huggingface
+    config:
+      checkpoint_format: huggingface
+      distributed_backend: null
+      device: cpu
   tool_runtime:
   - provider_id: brave-search
     provider_type: remote::brave-search
@@ -92,9 +100,19 @@ providers:
   - provider_id: rag-runtime
     provider_type: inline::rag-runtime
     config: {}
+  - provider_id: model-context-protocol
+    provider_type: remote::model-context-protocol
+    config: {}
+  - provider_id: wolfram-alpha
+    provider_type: remote::wolfram-alpha
+    config:
+      api_key: ${env.WOLFRAM_ALPHA_API_KEY:}
 metadata_store:
   type: sqlite
   db_path: ${env.SQLITE_STORE_DIR:~/.llama/distributions/ramalama}/registry.db
+inference_store:
+  type: sqlite
+  db_path: ${env.SQLITE_STORE_DIR:~/.llama/distributions/ramalama}/inference_store.db
 models:
 - metadata: {}
   model_id: ${env.INFERENCE_MODEL}
@@ -110,6 +128,8 @@ tool_groups:
   provider_id: tavily-search
 - toolgroup_id: builtin::rag
   provider_id: rag-runtime
+- toolgroup_id: builtin::wolfram_alpha
+  provider_id: wolfram-alpha
 server:
   port: 8321
 external_providers_dir: ${env.EXTERNAL_PROVIDERS_DIR:~/.llama/providers.d}
