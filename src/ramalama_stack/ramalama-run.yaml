@@ -17,6 +17,9 @@ providers:
     provider_type: remote::ramalama
     config:
       url: ${env.RAMALAMA_URL:http://localhost:8080}
+  - provider_id: sentence-transformers
+    provider_type: inline::sentence-transformers
+    config: {}
   vector_io:
   - provider_id: milvus
     provider_type: inline::milvus
@@ -42,7 +45,7 @@ providers:
   - provider_id: meta-reference
     provider_type: inline::meta-reference
     config:
-      service_name: "${env.OTEL_SERVICE_NAME:\u200B}"
+      service_name: ${env.OTEL_SERVICE_NAME:llamastack}
       sinks: ${env.TELEMETRY_SINKS:console,sqlite}
       sqlite_db_path: ${env.SQLITE_DB_PATH:~/.llama/distributions/ramalama}/trace_store.db
   eval:
@@ -118,6 +121,11 @@ models:
   model_id: ${env.INFERENCE_MODEL}
   provider_id: ramalama
   model_type: llm
+- metadata:
+    embedding_dimension: 384
+  model_id: all-MiniLM-L6-v2
+  provider_id: sentence-transformers
+  model_type: embedding
 shields: []
 vector_dbs: []
 datasets: []
