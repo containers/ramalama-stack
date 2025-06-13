@@ -61,3 +61,20 @@ and Schrödinger\'s cat?" The librarian replied, "It rings a bell, but I\'m not 
     ]
 )
 ```
+
+## Llama Stack User Interface
+
+Llama Stack includes an experimental user-interface, check it out
+[here](https://github.com/meta-llama/llama-stack/tree/main/llama_stack/distribution/ui).
+
+To deploy the UI, run this:
+
+```bash
+podman run -d --rm --network=container:ramalama --name=streamlit quay.io/redhat-et/streamlit_client:0.1.0
+```
+
+> [!NOTE]
+> If running on MacOS (not Linux), `--network=host` doesn't work. You'll need to publish additional ports `8321:8321` and `8501:8501` with the ramalama serve command,
+> then run with `network=containers:ramalama`.
+>
+> If running on Linux use `--network=host` or `-p 8501:8501` instead. The streamlit container will be able to access the ramalama endpoint with either.
