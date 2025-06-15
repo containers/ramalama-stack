@@ -75,6 +75,6 @@ podman run -d --rm --network=container:ramalama --name=streamlit quay.io/redhat-
 
 > [!NOTE]
 > If running on MacOS (not Linux), `--network=host` doesn't work. You'll need to publish additional ports `8321:8321` and `8501:8501` with the ramalama serve command,
-> then run with `network=containers:ramalama`.
+> then run with `network=container:ramalama`.
 >
 > If running on Linux use `--network=host` or `-p 8501:8501` instead. The streamlit container will be able to access the ramalama endpoint with either.
