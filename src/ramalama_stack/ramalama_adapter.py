@@ -25,6 +25,7 @@ from llama_stack.apis.inference import (
     ToolConfig,
     ToolDefinition,
     ToolPromptFormat,
+    OpenAIEmbeddingsResponse,
 )
 from llama_stack.apis.inference.inference import (
     OpenAIChatCompletion,
@@ -202,6 +203,16 @@ class RamalamaInferenceAdapter(Inference, ModelsProtocolPrivate):
                 f"Available models: {', '.join(available_models)}"
             )
         return model
+
+    async def openai_embeddings(
+        self,
+        model: str,
+        input: str | list[str],
+        encoding_format: str | None = "float",
+        dimensions: int | None = None,
+        user: str | None = None,
+    ) -> OpenAIEmbeddingsResponse:
+        raise NotImplementedError()
 
     async def openai_completion(
         self,
