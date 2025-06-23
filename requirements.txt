@@ -153,9 +153,9 @@ jsonschema==4.24.0
     #   llama-stack
 jsonschema-specifications==2025.4.1
     # via jsonschema
-llama-stack==0.2.10.1
+llama-stack==0.2.11
     # via ramalama-stack
-llama-stack-client==0.2.10
+llama-stack-client==0.2.12
     # via llama-stack
 lxml==5.4.0
     # via blobfile
@@ -338,7 +338,7 @@ pyyaml==6.0.2
     #   peft
     #   pyaml
     #   transformers
-ramalama==0.9.1
+ramalama==0.9.3
     # via ramalama-stack
 referencing==0.36.2
     # via
