@@ -184,3 +184,45 @@ function test_llama_stack_openai_chat_completion {
     exit 1
   fi
 }
+
+function start_and_wait_for_llama_stack_ui {
+  echo "Starting Streamlit UI..."
+
+  podman run -d --rm --network=host --name=streamlit-ui quay.io/redhat-et/streamlit_client:0.1.0 || { echo "ERROR: Failed to start streamlit-ui container."; return 1; }
+
+  echo "Waiting for Streamlit UI to be ready..."
+  for i in {1..30}; do
+    echo "Attempt $i to connect to Streamlit UI..."
+    if curl -s http://localhost:8501 >/dev/null 2>&1; then
+      echo "Streamlit UI is up and responding on port 8501"
+      return 0
+    fi
+    sleep 2
+  done
+
+  echo "Streamlit UI failed to start or respond"
+  echo "Container logs:"
+  podman logs streamlit-ui
+  return 1
+}
+
+function test_llama_stack_ui {
+  echo "===> test_llama_stack_ui: start"
+
+  trap 'echo "Stopping Streamlit UI container..."; podman stop streamlit-ui >/dev/null 2>&1' RETURN
+
+  if ! start_and_wait_for_llama_stack_ui; then
+    echo "===> test_llama_stack_ui: fail - UI failed to start"
+    return 1
+  fi
+
+  resp=$(curl -sS http://localhost:8501)
+  if echo "$resp" | grep -q -i "streamlit\|html"; then
+    echo "===> test_llama_stack_ui: pass"
+    return 0
+  else
+    echo "===> test_llama_stack_ui: fail - UI not serving expected content"
+    echo "Response: $resp"
+    return 1
+  fi
+}
