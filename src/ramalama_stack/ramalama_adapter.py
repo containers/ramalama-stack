@@ -235,6 +235,7 @@ class RamalamaInferenceAdapter(Inference, ModelsProtocolPrivate):
         user: Optional[str] = None,
         guided_choice: Optional[List[str]] = None,
         prompt_logprobs: Optional[int] = None,
+        suffix: str | None = None,
     ) -> OpenAICompletion:
         model_obj = await self.model_store.get_model(model)
         params = await prepare_openai_completion_params(
@@ -255,6 +256,7 @@ class RamalamaInferenceAdapter(Inference, ModelsProtocolPrivate):
             temperature=temperature,
             top_p=top_p,
             user=user,
+            suffix=suffix,
         )
         return await self.client.completions.create(**params)  # type: ignore
 
