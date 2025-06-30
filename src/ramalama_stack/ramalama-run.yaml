@@ -12,24 +12,7 @@ apis:
 - tool_runtime
 - vector_io
 providers:
-  inference:
-  - provider_id: ramalama
-    provider_type: remote::ramalama
-    config:
-      url: ${env.RAMALAMA_URL:=http://localhost:8080}
-  - provider_id: sentence-transformers
-    provider_type: inline::sentence-transformers
-    config: {}
-  vector_io:
-  - provider_id: milvus
-    provider_type: inline::milvus
-    config:
-      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/milvus_store.db
-  safety:
-  - provider_id: llama-guard
-    provider_type: inline::llama-guard
-    config:
-      excluded_categories: []
+  # all available providers can be found here: https://llama-stack.readthedocs.io/en/latest/providers/index.html
   agents:
   - provider_id: meta-reference
     provider_type: inline::meta-reference
@@ -41,21 +24,6 @@ providers:
       responses_store:
         type: sqlite
         db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/responses_store.db
-  telemetry:
-  - provider_id: meta-reference
-    provider_type: inline::meta-reference
-    config:
-      service_name: ${env.OTEL_SERVICE_NAME:=llamastack}
-      sinks: ${env.TELEMETRY_SINKS:=console,sqlite}
-      sqlite_db_path: ${env.SQLITE_DB_PATH:=~/.llama/distributions/ramalama}/trace_store.db
-  eval:
-  - provider_id: meta-reference
-    provider_type: inline::meta-reference
-    config:
-      kvstore:
-        type: sqlite
-        namespace: null
-        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/meta_reference_eval.db
   datasetio:
   - provider_id: huggingface
     provider_type: remote::huggingface
@@ -71,6 +39,34 @@ providers:
         type: sqlite
         namespace: null
         db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/localfs_datasetio.db
+  eval:
+  - provider_id: meta-reference
+    provider_type: inline::meta-reference
+    config:
+      kvstore:
+        type: sqlite
+        namespace: null
+        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/meta_reference_eval.db
+  inference:
+  - provider_id: ramalama
+    provider_type: remote::ramalama
+    config:
+      url: ${env.RAMALAMA_URL:=http://localhost:8080}
+  - provider_id: sentence-transformers
+    provider_type: inline::sentence-transformers
+    config: {}
+  post_training:
+  - provider_id: huggingface
+    provider_type: inline::huggingface
+    config:
+      checkpoint_format: huggingface
+      distributed_backend: null
+      device: cpu
+  safety:
+  - provider_id: llama-guard
+    provider_type: inline::llama-guard
+    config:
+      excluded_categories: []
   scoring:
   - provider_id: basic
     provider_type: inline::basic
@@ -82,13 +78,13 @@ providers:
     provider_type: inline::braintrust
     config:
       openai_api_key: ${env.OPENAI_API_KEY:+}
-  post_training:
-  - provider_id: huggingface
-    provider_type: inline::huggingface
+  telemetry:
+  - provider_id: meta-reference
+    provider_type: inline::meta-reference
     config:
-      checkpoint_format: huggingface
-      distributed_backend: null
-      device: cpu
+      service_name: ${env.OTEL_SERVICE_NAME:=llamastack}
+      sinks: ${env.TELEMETRY_SINKS:=console,sqlite}
+      sqlite_db_path: ${env.SQLITE_DB_PATH:=~/.llama/distributions/ramalama}/trace_store.db
   tool_runtime:
   - provider_id: brave-search
     provider_type: remote::brave-search
@@ -110,6 +106,11 @@ providers:
     provider_type: remote::wolfram-alpha
     config:
       api_key: ${env.WOLFRAM_ALPHA_API_KEY:+}
+  vector_io:
+  - provider_id: milvus
+    provider_type: inline::milvus
+    config:
+      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/milvus_store.db
 metadata_store:
   type: sqlite
   db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/registry.db
