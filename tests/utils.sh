@@ -157,7 +157,8 @@ function test_llama_stack_openai_models {
 function test_llama_stack_chat_completion {
   echo "===> test_llama_stack_chat_completion: start"
   nohup uv run llama-stack-client configure --endpoint http://localhost:8321 --api-key none
-  if nohup uv run llama-stack-client inference chat-completion --message "tell me a joke" | grep -q "completion_message"; then
+  resp=$(nohup uv run llama-stack-client inference chat-completion --message "tell me a joke")
+  if echo "$resp" | grep -q "OpenAIChatCompletion"; then
     echo "===> test_llama_stack_chat_completion: pass"
     return
   else
