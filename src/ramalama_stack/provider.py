@@ -12,7 +12,7 @@ def get_provider_spec() -> ProviderSpec:
         adapter=AdapterSpec(
             adapter_type="ramalama",
             pip_packages=["ramalama>=0.8.5", "pymilvus"],
-            config_class="config.RamalamaImplConfig",
+            config_class="ramalama_stack.config.RamalamaImplConfig",
             module="ramalama_stack",
         ),
     )
