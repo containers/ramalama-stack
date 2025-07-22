@@ -55,6 +55,7 @@ def setup_vector_db(client):
     for model in models:
         if hasattr(model, "model_type") and model.model_type == "embedding":
             embedding_model = model.identifier
+            embedding_dimension = model.metadata["embedding_dimension"]
             break
 
     if not embedding_model:
@@ -66,9 +67,11 @@ def setup_vector_db(client):
     client.vector_dbs.register(
         vector_db_id=vector_db_id,
         embedding_model=embedding_model,
-        embedding_dimension=int(os.getenv("VDB_EMBEDDING_DIMENSION", 384)),
+        embedding_dimension=embedding_dimension,
         provider_id=os.getenv("VDB_PROVIDER", "milvus"),
     )
+
+    print(f"Vector database '{vector_db_id}' registered")
 
     # Ingest simple test documents instead of external URLs
     test_content = [
@@ -87,7 +90,9 @@ def setup_vector_db(client):
         for i, content in enumerate(test_content)
     ]
 
-    print(f"Ingesting {len(documents)} test documents into vector database...")
+    print(
+        f"Ingesting {len(documents)} test documents into vector database '{vector_db_id}'..."
+    )
     client.tool_runtime.rag_tool.insert(
         documents=documents,
         vector_db_id=vector_db_id,

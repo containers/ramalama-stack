@@ -27,7 +27,7 @@ function start_and_wait_for_ramalama_server {
 
 function start_and_wait_for_llama_stack_server {
   # Start llama stack run with logging to 'lls-$INFERENCE_MODEL_NO_COLON.log'
-  LLAMA_STACK_LOG_FILE="lls-$INFERENCE_MODEL_NO_COLON.log" nohup uv run llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml --image-type venv &
+  LLAMA_STACK_LOGGING=all=debug LLAMA_STACK_LOG_FILE="lls-$INFERENCE_MODEL_NO_COLON.log" nohup uv run llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml --image-type venv &
   LLS_PID=$!
   echo "Started Llama Stack server with PID: $LLS_PID"
 

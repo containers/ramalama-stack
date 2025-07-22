@@ -47,6 +47,8 @@ certifi==2025.4.26
     #   httpcore
     #   httpx
     #   requests
+cffi==1.17.1 ; platform_python_implementation != 'PyPy'
+    # via cryptography
 chardet==5.2.0
     # via ramalama-stack
 charset-normalizer==3.4.2
@@ -61,6 +63,8 @@ colorama==0.4.6 ; sys_platform == 'win32'
     # via
     #   click
     #   tqdm
+cryptography==45.0.5
+    # via python-jose
 datasets==3.6.0
     # via
     #   ramalama-stack
@@ -159,9 +163,9 @@ jsonschema==4.24.0
     #   llama-stack
 jsonschema-specifications==2025.4.1
     # via jsonschema
-llama-stack==0.2.14
+llama-stack==0.2.15
     # via ramalama-stack
-llama-stack-client==0.2.14
+llama-stack-client==0.2.15
     # via llama-stack
 lxml==5.4.0
     # via blobfile
@@ -304,6 +308,8 @@ pyasn1==0.6.1
     # via
     #   python-jose
     #   rsa
+pycparser==2.22 ; platform_python_implementation != 'PyPy'
+    # via cffi
 pycryptodomex==3.23.0
     # via blobfile
 pydantic==2.11.5
@@ -347,7 +353,7 @@ pyyaml==6.0.2
     #   peft
     #   pyaml
     #   transformers
-ramalama==0.10.1
+ramalama==0.11.0
     # via ramalama-stack
 referencing==0.36.2
     # via
