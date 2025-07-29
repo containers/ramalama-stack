@@ -134,7 +134,7 @@ class RamalamaInferenceAdapter(Inference, ModelsProtocolPrivate):
         s = await self.client.chat.completions.create(**request)
         if stream:
             return convert_openai_chat_completion_stream(
-                s, enable_incremental_tool_calls=False
+                s, enable_incremental_tool_calls=True
             )
         else:
             # we pass n=1 to get only one completion
