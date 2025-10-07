@@ -11,7 +11,7 @@ def get_provider_spec() -> ProviderSpec:
         api=Api.inference,
         adapter=AdapterSpec(
             adapter_type="ramalama",
-            pip_packages=["ramalama>=0.8.5", "pymilvus"],
+            pip_packages=[],
             config_class="ramalama_stack.config.RamalamaImplConfig",
             module="ramalama_stack",
         ),
