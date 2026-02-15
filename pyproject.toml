@@ -21,8 +21,9 @@ dependencies = [
     "datasets>=3.6.0",
     "fastapi>=0.115.12",
     "httpx>=0.28.1",
-    "llama-stack==0.2.14",
+    "llama-stack==0.2.23",
     "mcp>=1.9.2",
+    "milvus-lite>=2.5.1",
     "numpy>=2.2.6",
     "openai>=1.82.0",
     "opentelemetry-exporter-otlp-proto-http>=1.33.1",
@@ -31,7 +32,7 @@ dependencies = [
     "psutil>=7.0.0",
     "pydantic>=2.11.5",
     "pymilvus>=2.5.10",
-    "ramalama==0.10.1",
+    "ramalama==0.17.1",
     "requests>=2.32.3",
     "sentence-transformers>=3.0.0",
     "six>=1.17.0",
@@ -40,6 +41,7 @@ dependencies = [
     "trl>=0.18.1",
     "urllib3>=2.4.0",
     "uvicorn>=0.34.2",
+    "setuptools<70", # so milvus-lite works https://stackoverflow.com/questions/79873497/why-does-pymilvus-still-report-milvus-lite-is-required-after-installing-pymilv
 ]
 
 [dependency-groups]

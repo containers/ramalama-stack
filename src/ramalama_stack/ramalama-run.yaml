@@ -4,6 +4,7 @@ apis:
 - agents
 - datasetio
 - eval
+- files
 - inference
 - post_training
 - safety
@@ -47,9 +48,18 @@ providers:
         type: sqlite
         namespace: null
         db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/meta_reference_eval.db
+  files:
+  - provider_id: meta-reference-files
+    provider_type: inline::localfs
+    config:
+      storage_dir: ${env.FILES_STORAGE_DIR:=~/.llama/distributions/ramalama/files}
+      metadata_store:
+        type: sqlite
+        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/files_metadata.db
   inference:
   - provider_id: ramalama
     provider_type: remote::ramalama
+    module: ramalama_stack
     config:
       url: ${env.RAMALAMA_URL:=http://localhost:8080}
   - provider_id: sentence-transformers
@@ -57,11 +67,12 @@ providers:
     config: {}
   post_training:
   - provider_id: huggingface
-    provider_type: inline::huggingface
+    provider_type: inline::huggingface-gpu
     config:
       checkpoint_format: huggingface
       distributed_backend: null
       device: cpu
+      dpo_output_dir: ${env.DPO_OUTPUT_DIR:=~/.llama/distributions/ramalama/dpo_output}
   safety:
   - provider_id: llama-guard
     provider_type: inline::llama-guard
@@ -110,11 +121,11 @@ providers:
   - provider_id: milvus
     provider_type: inline::milvus
     config:
-      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama/milvus.db}
+      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/milvus.db
       kvstore:
         type: sqlite
         namespace: null
-        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama/milvus_registry.db}
+        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/milvus_registry.db
 metadata_store:
   type: sqlite
   db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/registry.db
@@ -145,4 +156,3 @@ tool_groups:
   provider_id: wolfram-alpha
 server:
   port: 8321
-external_providers_dir: ${env.EXTERNAL_PROVIDERS_DIR:=~/.llama/providers.d}

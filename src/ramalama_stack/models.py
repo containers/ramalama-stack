@@ -9,7 +9,6 @@ from llama_stack.models.llama.sku_types import CoreModelId
 from llama_stack.providers.utils.inference.model_registry import (
     ProviderModelEntry,
     build_hf_repo_model_entry,
-    build_model_entry,
 )
 
 model_entries = [
@@ -17,56 +16,28 @@ model_entries = [
         "llama3.1:8b-instruct-fp16",
         CoreModelId.llama3_1_8b_instruct.value,
     ),
-    build_model_entry(
-        "llama3.1:8b",
-        CoreModelId.llama3_1_8b_instruct.value,
-    ),
     build_hf_repo_model_entry(
         "llama3.1:70b-instruct-fp16",
-        CoreModelId.llama3_1_70b_instruct.value,
-    ),
-    build_model_entry(
-        "llama3.1:70b",
         CoreModelId.llama3_1_70b_instruct.value,
     ),
     build_hf_repo_model_entry(
         "llama3.1:405b-instruct-fp16",
         CoreModelId.llama3_1_405b_instruct.value,
     ),
-    build_model_entry(
-        "llama3.1:405b",
-        CoreModelId.llama3_1_405b_instruct.value,
-    ),
     build_hf_repo_model_entry(
         "llama3.2:1b-instruct-fp16",
-        CoreModelId.llama3_2_1b_instruct.value,
-    ),
-    build_model_entry(
-        "llama3.2:1b",
         CoreModelId.llama3_2_1b_instruct.value,
     ),
     build_hf_repo_model_entry(
         "llama3.2:3b-instruct-fp16",
         CoreModelId.llama3_2_3b_instruct.value,
     ),
-    build_model_entry(
-        "llama3.2:3b",
-        CoreModelId.llama3_2_3b_instruct.value,
-    ),
     build_hf_repo_model_entry(
         "llama3.2-vision:11b-instruct-fp16",
         CoreModelId.llama3_2_11b_vision_instruct.value,
     ),
-    build_model_entry(
-        "llama3.2-vision:latest",
-        CoreModelId.llama3_2_11b_vision_instruct.value,
-    ),
     build_hf_repo_model_entry(
         "llama3.2-vision:90b-instruct-fp16",
-        CoreModelId.llama3_2_90b_vision_instruct.value,
-    ),
-    build_model_entry(
-        "llama3.2-vision:90b",
         CoreModelId.llama3_2_90b_vision_instruct.value,
     ),
     build_hf_repo_model_entry(
