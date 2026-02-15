@@ -1,15 +1,19 @@
-from typing import Any, Dict
+from typing import Any
 
-from pydantic import BaseModel
+from pydantic import Field, HttpUrl
 
-DEFAULT_RAMALAMA_URL = "http://localhost:8080"
+from llama_stack.providers.utils.inference.model_registry import RemoteInferenceProviderConfig
+from llama_stack_api import json_schema_type
 
-
-class RamalamaImplConfig(BaseModel):
-    url: str = DEFAULT_RAMALAMA_URL
+@json_schema_type
+class RamalamaImplConfig(RemoteInferenceProviderConfig):
+    base_url: HttpUrl | None = Field(
+        default=HttpUrl("http://localhost:8080/v1"),
+        description="The URL for the Ramalama server",
+    )
 
     @classmethod
-    def sample_run_config(
-        cls, url: str = "${env.RAMALAMA_URL:http://localhost:8080}", **kwargs
-    ) -> Dict[str, Any]:
-        return {"url": url}
+    def sample_run_config(cls, **kwargs) -> dict[str, Any]:
+        return {
+            "base_url": "http://localhost:8080/v1",
+        }

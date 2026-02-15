@@ -1,148 +1,230 @@
-version: '2'
-image_name: ramalama
+version: 2
+distro_name: ramalama 
 apis:
 - agents
+- batches
 - datasetio
 - eval
+- files
 - inference
 - post_training
 - safety
 - scoring
-- telemetry
 - tool_runtime
 - vector_io
 providers:
-  # all available providers can be found here: https://llama-stack.readthedocs.io/en/latest/providers/index.html
-  agents:
-  - provider_id: meta-reference
-    provider_type: inline::meta-reference
-    config:
-      persistence_store:
-        type: sqlite
-        namespace: null
-        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/agents_store.db
-      responses_store:
-        type: sqlite
-        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/responses_store.db
-  datasetio:
-  - provider_id: huggingface
-    provider_type: remote::huggingface
-    config:
-      kvstore:
-        type: sqlite
-        namespace: null
-        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/huggingface_datasetio.db
-  - provider_id: localfs
-    provider_type: inline::localfs
-    config:
-      kvstore:
-        type: sqlite
-        namespace: null
-        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/localfs_datasetio.db
-  eval:
-  - provider_id: meta-reference
-    provider_type: inline::meta-reference
-    config:
-      kvstore:
-        type: sqlite
-        namespace: null
-        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/meta_reference_eval.db
   inference:
-  - provider_id: ramalama
-    provider_type: remote::ramalama
+  - provider_id: ${env.VLLM_URL:+ramalama}
+    provider_type: remote::vllm
     config:
-      url: ${env.RAMALAMA_URL:=http://localhost:8080}
+      base_url: ${env.VLLM_URL:=}
+      max_tokens: ${env.VLLM_MAX_TOKENS:=4096}
+  - provider_id: ${env.RAMALAMA_URL:+ramalama}
+    provider_type: remote::ramalama
+    module: ramalama_stack
+    config:
+      base_url: ${env.RAMALAMA_URL:=}
   - provider_id: sentence-transformers
     provider_type: inline::sentence-transformers
-    config: {}
-  post_training:
-  - provider_id: huggingface
-    provider_type: inline::huggingface
+  vector_io:
+  - provider_id: ${env.MILVUS_URL:+milvus}
+    provider_type: inline::milvus
     config:
-      checkpoint_format: huggingface
-      distributed_backend: null
-      device: cpu
+      db_path: ${env.MILVUS_DB_PATH:=~/.llama/distributions/starter}/milvus.db
+      persistence:
+        namespace: vector_io::milvus
+        backend: kv_default
+  files:
+  - provider_id: meta-reference-files
+    provider_type: inline::localfs
+    config:
+      storage_dir: ${env.FILES_STORAGE_DIR:=~/.llama/distributions/starter/files}
+      metadata_store:
+        table_name: files_metadata
+        backend: sql_default
   safety:
   - provider_id: llama-guard
     provider_type: inline::llama-guard
     config:
       excluded_categories: []
-  scoring:
-  - provider_id: basic
-    provider_type: inline::basic
-    config: {}
-  - provider_id: llm-as-judge
-    provider_type: inline::llm-as-judge
-    config: {}
-  - provider_id: braintrust
-    provider_type: inline::braintrust
-    config:
-      openai_api_key: ${env.OPENAI_API_KEY:+}
-  telemetry:
+  - provider_id: code-scanner
+    provider_type: inline::code-scanner
+  agents:
   - provider_id: meta-reference
     provider_type: inline::meta-reference
     config:
-      service_name: ${env.OTEL_SERVICE_NAME:=llamastack}
-      sinks: ${env.TELEMETRY_SINKS:=console,sqlite}
-      sqlite_db_path: ${env.SQLITE_DB_PATH:=~/.llama/distributions/ramalama}/trace_store.db
+      persistence:
+        agent_state:
+          namespace: agents
+          backend: kv_default
+        responses:
+          table_name: responses
+          backend: sql_default
+          max_write_queue_size: 10000
+          num_writers: 4
+  post_training:
+  - provider_id: torchtune-cpu
+    provider_type: inline::torchtune-cpu
+    config:
+      checkpoint_format: meta
+  eval:
+  - provider_id: meta-reference
+    provider_type: inline::meta-reference
+    config:
+      kvstore:
+        namespace: eval
+        backend: kv_default
+  datasetio:
+  - provider_id: huggingface
+    provider_type: remote::huggingface
+    config:
+      kvstore:
+        namespace: datasetio::huggingface
+        backend: kv_default
+  - provider_id: localfs
+    provider_type: inline::localfs
+    config:
+      kvstore:
+        namespace: datasetio::localfs
+        backend: kv_default
+  scoring:
+  - provider_id: basic
+    provider_type: inline::basic
+  - provider_id: llm-as-judge
+    provider_type: inline::llm-as-judge
+  - provider_id: braintrust
+    provider_type: inline::braintrust
+    config:
+      openai_api_key: ${env.OPENAI_API_KEY:=}
   tool_runtime:
   - provider_id: brave-search
     provider_type: remote::brave-search
     config:
-      api_key: ${env.BRAVE_SEARCH_API_KEY:+}
+      api_key: ${env.BRAVE_SEARCH_API_KEY:=}
       max_results: 3
   - provider_id: tavily-search
     provider_type: remote::tavily-search
     config:
-      api_key: ${env.TAVILY_SEARCH_API_KEY:+}
+      api_key: ${env.TAVILY_SEARCH_API_KEY:=}
       max_results: 3
   - provider_id: rag-runtime
     provider_type: inline::rag-runtime
-    config: {}
   - provider_id: model-context-protocol
     provider_type: remote::model-context-protocol
-    config: {}
   - provider_id: wolfram-alpha
     provider_type: remote::wolfram-alpha
     config:
       api_key: ${env.WOLFRAM_ALPHA_API_KEY:+}
-  vector_io:
-  - provider_id: milvus
-    provider_type: inline::milvus
+  batches:
+  - provider_id: reference
+    provider_type: inline::reference
     config:
-      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama/milvus.db}
       kvstore:
-        type: sqlite
-        namespace: null
-        db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama/milvus_registry.db}
-metadata_store:
-  type: sqlite
-  db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/registry.db
-inference_store:
-  type: sqlite
-  db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/inference_store.db
-models:
-- metadata: {}
-  model_id: ${env.INFERENCE_MODEL}
-  provider_id: ramalama
-  model_type: llm
-- metadata:
-    embedding_dimension: 384
-  model_id: all-MiniLM-L6-v2
-  provider_id: sentence-transformers
-  model_type: embedding
-shields: []
-vector_dbs: []
-datasets: []
-scoring_fns: []
-benchmarks: []
-tool_groups:
-- toolgroup_id: builtin::websearch
-  provider_id: tavily-search
-- toolgroup_id: builtin::rag
-  provider_id: rag-runtime
-- toolgroup_id: builtin::wolfram_alpha
-  provider_id: wolfram-alpha
+        namespace: batches
+        backend: kv_default
+storage:
+  backends:
+    kv_default:
+      type: kv_sqlite
+      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/starter}/kvstore.db
+    sql_default:
+      type: sql_sqlite
+      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/starter}/sql_store.db
+  stores:
+    metadata:
+      namespace: registry
+      backend: kv_default
+    inference:
+      table_name: inference_store
+      backend: sql_default
+      max_write_queue_size: 10000
+      num_writers: 4
+    conversations:
+      table_name: openai_conversations
+      backend: sql_default
+    prompts:
+      namespace: prompts
+      backend: kv_default
+    connectors:
+      namespace: connectors
+      backend: kv_default
+registered_resources:
+  models:
+  - metadata: {}
+    model_id: ${env.INFERENCE_MODEL}
+    provider_id: ramalama
+    model_type: llm
+  shields:
+  - shield_id: llama-guard
+    provider_id: ${env.SAFETY_MODEL:+llama-guard}
+    provider_shield_id: ${env.SAFETY_MODEL:=}
+  - shield_id: code-scanner
+    provider_id: ${env.CODE_SCANNER_MODEL:+code-scanner}
+    provider_shield_id: ${env.CODE_SCANNER_MODEL:=}
+  vector_dbs: []
+  datasets: []
+  scoring_fns: []
+  benchmarks: []
+  tool_groups:
+  - toolgroup_id: builtin::websearch
+    provider_id: tavily-search
+  - toolgroup_id: builtin::rag
+    provider_id: rag-runtime
+  - toolgroup_id: builtin::wolfram_alpha
+    provider_id: wolfram-alpha
 server:
   port: 8321
-external_providers_dir: ${env.EXTERNAL_PROVIDERS_DIR:=~/.llama/providers.d}
+vector_stores:
+  default_provider_id: milvus 
+  default_embedding_model:
+    provider_id: sentence-transformers
+    model_id: nomic-ai/nomic-embed-text-v1.5
+  file_search_params:
+    header_template: 'knowledge_search tool found {num_chunks} chunks:
+
+      BEGIN of knowledge_search tool results.
+
+      '
+    footer_template: 'END of knowledge_search tool results.
+
+      '
+  context_prompt_params:
+    chunk_annotation_template: 'Result {index}
+
+      Content: {chunk.content}
+
+      Metadata: {metadata}
+
+      '
+    context_template: 'The above results were retrieved to help answer the user''s
+      query: "{query}". Use them as supporting information only in answering this
+      query. {annotation_instruction}
+
+      '
+  annotation_prompt_params:
+    enable_annotations: true
+    annotation_instruction_template: Cite sources immediately at the end of sentences
+      before punctuation, using `<|file-id|>` format like 'This is a fact <|file-Cn3MSNn72ENTiiq11Qda4A|>.'.
+      Do not add extra punctuation. Use only the file IDs provided, do not invent
+      new ones.
+    chunk_annotation_template: '[{index}] {metadata_text} cite as <|{file_id}|>
+
+      {chunk_text}
+
+      '
+  file_ingestion_params:
+    default_chunk_size_tokens: 512
+    default_chunk_overlap_tokens: 128
+  chunk_retrieval_params:
+    chunk_multiplier: 5
+    max_tokens_in_context: 4000
+    default_reranker_strategy: rrf
+    rrf_impact_factor: 60.0
+    weighted_search_alpha: 0.5
+  file_batch_params:
+    max_concurrent_files_per_batch: 3
+    file_batch_chunk_size: 10
+    cleanup_interval_seconds: 86400
+safety:
+  default_shield_id: llama-guard
+connectors: []
