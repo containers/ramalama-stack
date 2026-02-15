@@ -41,7 +41,7 @@ dependencies = [
     "trl>=0.18.1",
     "urllib3>=2.4.0",
     "uvicorn>=0.34.2",
-    "setuptools<70", # so milvus-lite works https://stackoverflow.com/questions/79873497/why-does-pymilvus-still-report-milvus-lite-is-required-after-installing-pymilv
+    "setuptools<70",
 ]
 
 [dependency-groups]
