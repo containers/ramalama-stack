@@ -19,6 +19,10 @@ providers:
     config:
       base_url: ${env.VLLM_URL:=}
       max_tokens: ${env.VLLM_MAX_TOKENS:=4096}
+  - provider_id: ${env.LLAMA_CPP_SERVER_URL:+ramalama}
+    provider_type: remote::llama-cpp-server
+    config:
+      base_url: ${env.LLAMA_CPP_SERVER_URL:=}
   - provider_id: ${env.RAMALAMA_URL:+ramalama}
     provider_type: remote::ramalama
     module: ramalama_stack
@@ -30,7 +34,7 @@ providers:
   - provider_id: ${env.MILVUS_URL:+milvus}
     provider_type: inline::milvus
     config:
-      db_path: ${env.MILVUS_DB_PATH:=~/.llama/distributions/starter}/milvus.db
+      db_path: ${env.MILVUS_DB_PATH:=~/.llama/distributions/ramalama}/milvus.db
       persistence:
         namespace: vector_io::milvus
         backend: kv_default
@@ -38,7 +42,7 @@ providers:
   - provider_id: meta-reference-files
     provider_type: inline::localfs
     config:
-      storage_dir: ${env.FILES_STORAGE_DIR:=~/.llama/distributions/starter/files}
+      storage_dir: ${env.FILES_STORAGE_DIR:=~/.llama/distributions/ramalama/files}
       metadata_store:
         table_name: files_metadata
         backend: sql_default
@@ -126,10 +130,10 @@ storage:
   backends:
     kv_default:
       type: kv_sqlite
-      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/starter}/kvstore.db
+      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/kvstore.db
     sql_default:
       type: sql_sqlite
-      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/starter}/sql_store.db
+      db_path: ${env.SQLITE_STORE_DIR:=~/.llama/distributions/ramalama}/sql_store.db
   stores:
     metadata:
       namespace: registry

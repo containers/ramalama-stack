@@ -890,7 +890,7 @@ wheels = [
 
 [[package]]
 name = "llama-stack"
-version = "0.5.1"
+version = "0.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -911,7 +911,6 @@ dependencies = [
     { name = "opentelemetry-exporter-otlp-proto-http" },
     { name = "opentelemetry-sdk" },
     { name = "oracledb" },
-    { name = "pillow" },
     { name = "prompt-toolkit" },
     { name = "psycopg2-binary" },
     { name = "pydantic" },
@@ -928,9 +927,9 @@ dependencies = [
     { name = "urllib3" },
     { name = "uvicorn" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d3/5f/c1d795ca95baf21cc48693410a3ca7549b414e911315eb820fb531ab3cd6/llama_stack-0.5.1.tar.gz", hash = "sha256:833719d318227ebeeec9aabc3b9ee1f2bdc9fbad711691c22d618faac714896c", size = 16028608, upload-time = "2026-02-19T19:05:56.334Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f4/53/5bc3ae19e9a42475b42682456898ced5a0b48e43f918920fc790b665f223/llama_stack-0.6.0.tar.gz", hash = "sha256:d92711791633f5505a4473ffba3f3e26acb700716fddab5aec419d99e614c802", size = 13631563, upload-time = "2026-03-11T15:06:13.071Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f5/f5/e6ebb6afb6f0fd6df04977f76e86e4516a3e307647ad9f5c74726af39dfa/llama_stack-0.5.1-py3-none-any.whl", hash = "sha256:1a6f984c7cd1a9df0e53445805e928314c34d3c53a9c67426b80c3561e181ef0", size = 3979289, upload-time = "2026-02-19T19:05:54.236Z" },
+    { url = "https://files.pythonhosted.org/packages/9d/17/b4427e1db7409f698c95b6f8b2b9e662bbcf1f819beb1af180bab55ddfb5/llama_stack-0.6.0-py3-none-any.whl", hash = "sha256:b804830664dc91e54c7225a7a081cb1874c48fc18573569c19fac4a9397e8076", size = 770027, upload-time = "2026-03-11T15:06:10.649Z" },
 ]
 
 [[package]]
@@ -2210,7 +2209,7 @@ requires-dist = [
     { name = "datasets", specifier = ">=3.6.0" },
     { name = "fastapi", specifier = ">=0.115.12" },
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "llama-stack", specifier = "==0.5.1" },
+    { name = "llama-stack", specifier = "==0.6.0" },
     { name = "mcp", specifier = ">=1.9.2" },
     { name = "milvus-lite", specifier = ">=2.5.1" },
     { name = "numpy", specifier = ">=2.2.6" },
