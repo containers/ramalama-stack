@@ -27,7 +27,7 @@ function start_and_wait_for_ramalama_server {
 
 function start_and_wait_for_llama_stack_server {
   # Start llama stack run with logging to 'lls-$INFERENCE_MODEL_NO_COLON.log'
-  LLAMA_STACK_LOG_FILE="lls-$INFERENCE_MODEL_NO_COLON.log" nohup uv run llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml --image-type venv &
+  LLAMA_STACK_LOG_FILE="lls-$INFERENCE_MODEL_NO_COLON.log" nohup uv run llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml &
   LLS_PID=$!
   echo "Started Llama Stack server with PID: $LLS_PID"
 
@@ -64,6 +64,7 @@ function start_and_wait_for_llama_stack_container {
     --env INFERENCE_MODEL="$INFERENCE_MODEL" \
     --env RAMALAMA_URL=http://0.0.0.0:8080 \
     --name llama-stack \
+    --rm \
     quay.io/ramalama/llama-stack:latest
   LLS_PID=$!
   echo "Started Llama Stack container with PID: $LLS_PID"
@@ -75,7 +76,7 @@ function start_and_wait_for_llama_stack_container {
     resp=$(curl -s http://localhost:8321/v1/health)
     if [ "$resp" == '{"status":"OK"}' ]; then
       echo "Llama Stack server is up!"
-      if podman logs llama-stack | grep -q -e "remote::ramalama from .*providers.d/remote/inference/ramalama.yaml"; then
+      if podman logs llama-stack 2>&1 | grep -q -e "remote::ramalama"; then
         echo "Llama Stack server is using RamaLama provider"
         return
       else
@@ -102,6 +103,7 @@ function test_ramalama_models {
     return
   else
     echo "===> test_ramalama_models: fail"
+    echo "Response: $resp"
     echo "RamaLama logs:"
     cat "ramalama-$INFERENCE_MODEL_NO_COLON.log"
     exit 1
@@ -142,7 +144,7 @@ function test_llama_stack_models {
 function test_llama_stack_openai_models {
   echo "===> test_llama_stack_openai_models: start"
   # shellcheck disable=SC2016
-  resp=$(curl -sS http://localhost:8321/v1/openai/v1/models)
+  resp=$(curl -sS http://localhost:8321/v1/models)
   if echo "$resp" | grep -q "$INFERENCE_MODEL"; then
     echo "===> test_llama_stack_openai_models: pass"
     return
@@ -158,11 +160,12 @@ function test_llama_stack_chat_completion {
   echo "===> test_llama_stack_chat_completion: start"
   nohup uv run llama-stack-client configure --endpoint http://localhost:8321 --api-key none
   resp=$(nohup uv run llama-stack-client inference chat-completion --message "tell me a joke")
-  if echo "$resp" | grep -q "OpenAIChatCompletion"; then
+  if echo "$resp" | grep -q "CompletionCreateResponse"; then
     echo "===> test_llama_stack_chat_completion: pass"
     return
   else
     echo "===> test_llama_stack_chat_completion: fail"
+    echo "Response: $resp"
     echo "Server logs:"
     cat "lls-$INFERENCE_MODEL_NO_COLON.log" || podman logs llama-stack
     exit 1
@@ -172,14 +175,15 @@ function test_llama_stack_chat_completion {
 function test_llama_stack_openai_chat_completion {
   echo "===> test_llama_stack_openai_chat_completion: start"
   # shellcheck disable=SC2016
-  resp=$(curl -sS -X POST http://localhost:8321/v1/openai/v1/chat/completions \
+  resp=$(curl -sS -X POST http://localhost:8321/v1/chat/completions \
     -H "Content-Type: application/json" \
-    -d "{\"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}], \"model\": \"$INFERENCE_MODEL\"}")
+    -d "{\"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}], \"model\": \"ramalama/$INFERENCE_MODEL\"}")
   if echo "$resp" | grep -q "choices"; then
     echo "===> test_llama_stack_openai_chat_completion: pass"
     return
   else
     echo "===> test_llama_stack_openai_chat_completion: fail"
+    echo "Response: $resp"
     echo "Server logs:"
     cat "lls-$INFERENCE_MODEL_NO_COLON.log" || podman logs llama-stack
     exit 1

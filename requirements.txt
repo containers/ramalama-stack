@@ -24,6 +24,7 @@ annotated-types==0.7.0
 anyio==4.9.0
     # via
     #   httpx
+    #   llama-stack-client
     #   mcp
     #   openai
     #   sse-starlette
@@ -58,7 +59,9 @@ chevron==0.14.0
 circuitbreaker==2.1.3
     # via oci
 click==8.2.1
-    # via uvicorn
+    # via
+    #   llama-stack-client
+    #   uvicorn
 colorama==0.4.6 ; sys_platform == 'win32'
     # via
     #   click
@@ -78,7 +81,9 @@ dill==0.3.8
     #   datasets
     #   multiprocess
 distro==1.9.0
-    # via openai
+    # via
+    #   llama-stack-client
+    #   openai
 fastapi==0.129.0
     # via
     #   llama-stack
@@ -92,7 +97,9 @@ filelock==3.18.0
     #   torch
     #   transformers
 fire==0.7.0
-    # via llama-stack
+    # via
+    #   llama-stack
+    #   llama-stack-client
 frozenlist==1.6.0
     # via
     #   aiohttp
@@ -120,6 +127,7 @@ httpcore==1.0.9
 httpx==0.28.1
     # via
     #   llama-stack
+    #   llama-stack-client
     #   mcp
     #   openai
     #   ramalama-stack
@@ -161,6 +169,8 @@ llama-stack==0.6.0
     # via ramalama-stack
 llama-stack-api==0.5.1
     # via llama-stack
+llama-stack-client==0.6.0
+    # via ramalama-stack
 lxml==5.4.0
     # via blobfile
 markdown-it-py==3.0.0
@@ -288,6 +298,7 @@ packaging==25.0
 pandas==2.2.3
     # via
     #   datasets
+    #   llama-stack-client
     #   pymilvus
 peft==0.15.2
     # via ramalama-stack
@@ -296,7 +307,9 @@ pillow==11.2.1
 polyleven==0.9.0
     # via autoevals
 prompt-toolkit==3.0.51
-    # via llama-stack
+    # via
+    #   llama-stack
+    #   llama-stack-client
 propcache==0.3.1
     # via
     #   aiohttp
@@ -313,6 +326,8 @@ psutil==7.0.0
     #   ramalama-stack
 psycopg2-binary==2.9.11
     # via llama-stack
+pyaml==26.2.1
+    # via llama-stack-client
 pyarrow==20.0.0
     # via datasets
 pycparser==3.0 ; implementation_name != 'PyPy' and platform_python_implementation != 'PyPy'
@@ -324,6 +339,7 @@ pydantic==2.12.5
     #   fastapi
     #   llama-stack
     #   llama-stack-api
+    #   llama-stack-client
     #   mcp
     #   openai
     #   pydantic-settings
@@ -369,6 +385,7 @@ pyyaml==6.0.2
     #   huggingface-hub
     #   llama-stack
     #   peft
+    #   pyaml
     #   transformers
 referencing==0.36.2
     # via
@@ -382,12 +399,15 @@ requests==2.32.3
     # via
     #   datasets
     #   huggingface-hub
+    #   llama-stack-client
     #   opentelemetry-exporter-otlp-proto-http
     #   ramalama-stack
     #   tiktoken
     #   transformers
 rich==14.0.0
-    # via llama-stack
+    # via
+    #   llama-stack
+    #   llama-stack-client
 rpds-py==0.25.1
     # via
     #   jsonschema
@@ -418,6 +438,7 @@ six==1.17.0
 sniffio==1.3.1
     # via
     #   anyio
+    #   llama-stack-client
     #   openai
 sqlalchemy==2.0.41
     # via
@@ -436,6 +457,7 @@ termcolor==3.1.0
     # via
     #   fire
     #   llama-stack
+    #   llama-stack-client
 threadpoolctl==3.6.0
     # via scikit-learn
 tiktoken==0.9.0
@@ -454,6 +476,7 @@ tqdm==4.67.1
     # via
     #   datasets
     #   huggingface-hub
+    #   llama-stack-client
     #   milvus-lite
     #   openai
     #   peft
@@ -475,6 +498,7 @@ typing-extensions==4.15.0
     #   anyio
     #   fastapi
     #   huggingface-hub
+    #   llama-stack-client
     #   mcp
     #   openai
     #   opentelemetry-api
