@@ -38,7 +38,7 @@ function start_and_wait_for_llama_stack_server {
     resp=$(curl -s http://localhost:8321/v1/health)
     if [ "$resp" == '{"status":"OK"}' ]; then
       echo "Llama Stack server is up!"
-      if grep -q -e "remote::ramalama from .*providers.d/remote/inference/ramalama.yaml" "lls-$INFERENCE_MODEL_NO_COLON.log"; then
+      if grep -q -e "remote::ramalama" "lls-$INFERENCE_MODEL_NO_COLON.log"; then
         echo "Llama Stack server is using RamaLama provider"
         return
       else

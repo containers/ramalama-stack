@@ -64,7 +64,7 @@ package-dir = { "" = "src" }
 include-package-data = true
 
 [tool.setuptools.package-data]
-"ramalama_stack" = ["providers.d/**/*", "ramalama-run.yaml"]
+"ramalama_stack" = ["ramalama-run.yaml"]
 
 [tool.ruff]
 extend-exclude = ["*.ipynb"]

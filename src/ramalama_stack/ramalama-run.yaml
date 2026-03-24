@@ -39,7 +39,7 @@ providers:
         namespace: vector_io::milvus
         backend: kv_default
   files:
-  - provider_id: meta-reference-files
+  - provider_id: builtin-files
     provider_type: inline::localfs
     config:
       storage_dir: ${env.FILES_STORAGE_DIR:=~/.llama/distributions/ramalama/files}
@@ -118,7 +118,7 @@ providers:
   - provider_id: wolfram-alpha
     provider_type: remote::wolfram-alpha
     config:
-      api_key: ${env.WOLFRAM_ALPHA_API_KEY:+}
+      api_key: ${env.WOLFRAM_ALPHA_API_KEY:=}
   batches:
   - provider_id: reference
     provider_type: inline::reference
@@ -170,12 +170,14 @@ registered_resources:
   scoring_fns: []
   benchmarks: []
   tool_groups:
-  - toolgroup_id: builtin::websearch
+  - toolgroup_id: ${env.TAVILY_SEARCH_API_KEY:+builtin::websearch}
     provider_id: tavily-search
+  - toolgroup_id: ${env.BRAVE_SEARCH_API_KEY:+builtin::websearch}
+    provider_id: brave-search
   - toolgroup_id: builtin::rag
     provider_id: rag-runtime
-  - toolgroup_id: builtin::wolfram_alpha
-    provider_id: wolfram-alpha
+  - toolgroup_id: ${env.WOLFRAM_ALPHA_API_KEY:+builtin::websearch}
+    provider_id: wofram-alpha
 server:
   port: 8321
 vector_stores:

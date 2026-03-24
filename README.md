@@ -17,7 +17,6 @@ This will install Llama Stack and RamaLama as well if they are not installed alr
 > [!WARNING]
 > The following workaround is currently needed to run this provider - see https://github.com/containers/ramalama-stack/issues/53 for more details
 > ```bash
-> curl --create-dirs --output ~/.llama/providers.d/remote/inference/ramalama.yaml https://raw.githubusercontent.com/containers/ramalama-stack/refs/tags/v0.2.5/src/ramalama_stack/providers.d/remote/inference/ramalama.yaml
 > curl --create-dirs --output ~/.llama/distributions/ramalama/ramalama-run.yaml https://raw.githubusercontent.com/containers/ramalama-stack/refs/tags/v0.2.5/src/ramalama_stack/ramalama-run.yaml
 > ```
 
