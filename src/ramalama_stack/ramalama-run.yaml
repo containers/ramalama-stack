@@ -1,13 +1,11 @@
 version: 2
 distro_name: ramalama 
 apis:
-- agents
 - batches
 - datasetio
 - eval
 - files
 - inference
-- post_training
 - safety
 - scoring
 - tool_runtime
@@ -53,9 +51,9 @@ providers:
       excluded_categories: []
   - provider_id: code-scanner
     provider_type: inline::code-scanner
-  agents:
-  - provider_id: meta-reference
-    provider_type: inline::meta-reference
+  responses:
+  - provider_id: builtin
+    provider_type: inline::builtin
     config:
       persistence:
         agent_state:
@@ -66,14 +64,9 @@ providers:
           backend: sql_default
           max_write_queue_size: 10000
           num_writers: 4
-  post_training:
-  - provider_id: torchtune-cpu
-    provider_type: inline::torchtune-cpu
-    config:
-      checkpoint_format: meta
   eval:
-  - provider_id: meta-reference
-    provider_type: inline::meta-reference
+  - provider_id: builtin
+    provider_type: inline::builtin
     config:
       kvstore:
         namespace: eval
@@ -111,8 +104,8 @@ providers:
     config:
       api_key: ${env.TAVILY_SEARCH_API_KEY:=}
       max_results: 3
-  - provider_id: rag-runtime
-    provider_type: inline::rag-runtime
+  - provider_id: file-search
+    provider_type: inline::file-search
   - provider_id: model-context-protocol
     provider_type: remote::model-context-protocol
   - provider_id: wolfram-alpha
@@ -169,15 +162,15 @@ registered_resources:
   datasets: []
   scoring_fns: []
   benchmarks: []
-  tool_groups:
-  - toolgroup_id: ${env.TAVILY_SEARCH_API_KEY:+builtin::websearch}
-    provider_id: tavily-search
-  - toolgroup_id: ${env.BRAVE_SEARCH_API_KEY:+builtin::websearch}
-    provider_id: brave-search
-  - toolgroup_id: builtin::rag
-    provider_id: rag-runtime
-  - toolgroup_id: ${env.WOLFRAM_ALPHA_API_KEY:+builtin::websearch}
-    provider_id: wofram-alpha
+#  tool_groups:
+#  - toolgroup_id: ${env.TAVILY_SEARCH_API_KEY:+builtin::websearch}
+#    provider_id: tavily-search
+#  - toolgroup_id: ${env.BRAVE_SEARCH_API_KEY:+builtin::websearch}
+#    provider_id: brave-search
+#  - toolgroup_id: builtin::file_search
+#    provider_id: file-search
+#  - toolgroup_id: ${env.WOLFRAM_ALPHA_API_KEY:+builtin::websearch}
+#    provider_id: wofram-alpha
 server:
   port: 8321
 vector_stores:
@@ -186,12 +179,12 @@ vector_stores:
     provider_id: sentence-transformers
     model_id: nomic-ai/nomic-embed-text-v1.5
   file_search_params:
-    header_template: 'knowledge_search tool found {num_chunks} chunks:
+    header_template: 'file_search tool found {num_chunks} chunks:
 
-      BEGIN of knowledge_search tool results.
+      BEGIN of file_search tool results.
 
       '
-    footer_template: 'END of knowledge_search tool results.
+    footer_template: 'END of file_search tool results.
 
       '
   context_prompt_params:
