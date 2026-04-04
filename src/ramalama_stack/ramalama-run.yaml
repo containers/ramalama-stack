@@ -10,6 +10,7 @@ apis:
 - scoring
 - tool_runtime
 - vector_io
+- responses
 providers:
   inference:
   - provider_id: ${env.VLLM_URL:+ramalama}
@@ -162,15 +163,6 @@ registered_resources:
   datasets: []
   scoring_fns: []
   benchmarks: []
-#  tool_groups:
-#  - toolgroup_id: ${env.TAVILY_SEARCH_API_KEY:+builtin::websearch}
-#    provider_id: tavily-search
-#  - toolgroup_id: ${env.BRAVE_SEARCH_API_KEY:+builtin::websearch}
-#    provider_id: brave-search
-#  - toolgroup_id: builtin::file_search
-#    provider_id: file-search
-#  - toolgroup_id: ${env.WOLFRAM_ALPHA_API_KEY:+builtin::websearch}
-#    provider_id: wofram-alpha
 server:
   port: 8321
 vector_stores:
