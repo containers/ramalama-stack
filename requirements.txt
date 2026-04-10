@@ -165,13 +165,11 @@ jsonschema==4.24.0
     #   mcp
 jsonschema-specifications==2025.4.1
     # via jsonschema
-llama-stack==0.7.1
+llama-stack==0.6.0
     # via ramalama-stack
-llama-stack-api==0.7.1
-    # via
-    #   llama-stack
-    #   ramalama-stack
-llama-stack-client==0.7.1
+llama-stack-api==0.5.1
+    # via llama-stack
+llama-stack-client==0.6.0
     # via ramalama-stack
 lxml==5.4.0
     # via blobfile
@@ -352,7 +350,7 @@ pydantic-settings==2.9.1
     # via mcp
 pygments==2.19.1
     # via rich
-pyjwt==2.12.1
+pyjwt==2.11.0
     # via
     #   llama-stack
     #   mcp
@@ -453,8 +451,6 @@ starlette==0.52.1
     #   fastapi
     #   llama-stack
     #   mcp
-structlog==25.5.0
-    # via llama-stack
 sympy==1.14.0
     # via torch
 termcolor==3.1.0
