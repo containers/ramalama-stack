@@ -2,6 +2,10 @@
 
 function start_and_wait_for_ramalama_server {
   # Start ramalama serve in background with logging to 'ramalama-$INFERENCE_MODEL_NO_COLON.log'
+  if [[ -z $INFERENCE_MODEL ]]; then
+    echo "no INFERENCE_MODEL given, failed"
+    exit 1
+  fi
   nohup uv run ramalama serve "$INFERENCE_MODEL" > "ramalama-$INFERENCE_MODEL_NO_COLON.log" 2>&1 &
   RAMALAMA_PID=$!
   echo "Started RamaLama with PID: $RAMALAMA_PID"
@@ -10,7 +14,7 @@ function start_and_wait_for_ramalama_server {
   echo "Waiting for RamaLama server..."
   for i in {1..60}; do
     echo "Attempt $i to connect to RamaLama..."
-    resp=$(curl -s http://localhost:8080/health)
+    resp=$(curl -4 -s http://localhost:8080/health)
     if [ "$resp" == '{"status":"ok"}' ]; then
       echo "RamaLama server is up and responding!"
       break
@@ -35,7 +39,7 @@ function start_and_wait_for_llama_stack_server {
   echo "Waiting for Llama Stack server..."
   for i in {1..60}; do
     echo "Attempt $i to connect to Llama Stack..."
-    resp=$(curl -s http://localhost:8321/v1/health)
+    resp=$(curl -4 -s http://localhost:8321/v1/health)
     if [ "$resp" == '{"status":"OK"}' ]; then
       echo "Llama Stack server is up!"
       if grep -q -e "remote::ramalama" "lls-$INFERENCE_MODEL_NO_COLON.log"; then
@@ -73,7 +77,7 @@ function start_and_wait_for_llama_stack_container {
   echo "Waiting for Llama Stack server..."
   for i in {1..60}; do
     echo "Attempt $i to connect to Llama Stack..."
-    resp=$(curl -s http://localhost:8321/v1/health)
+    resp=$(curl -4 -s http://localhost:8321/v1/health)
     if [ "$resp" == '{"status":"OK"}' ]; then
       echo "Llama Stack server is up!"
       if podman logs llama-stack 2>&1 | grep -q -e "remote::ramalama"; then
@@ -97,7 +101,7 @@ function start_and_wait_for_llama_stack_container {
 function test_ramalama_models {
   echo "===> test_ramalama_models: start"
   # shellcheck disable=SC2016
-  resp=$(curl -sS http://localhost:8080/v1/models)
+  resp=$(curl -4 -sS http://localhost:8080/v1/models)
   if echo "$resp" | grep -q "$INFERENCE_MODEL"; then
     echo "===> test_ramalama_models: pass"
     return
@@ -113,7 +117,7 @@ function test_ramalama_models {
 function test_ramalama_chat_completion {
   echo "===> test_ramalama_chat_completion: start"
   # shellcheck disable=SC2016
-  resp=$(curl -sS -X POST http://localhost:8080/v1/chat/completions \
+  resp=$(curl -4 -sS -X POST http://localhost:8080/v1/chat/completions \
     -H "Content-Type: application/json" \
     -d "{\"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}], \"model\": \"$INFERENCE_MODEL\"}")
   if echo "$resp" | grep -q "choices"; then
@@ -144,7 +148,7 @@ function test_llama_stack_models {
 function test_llama_stack_openai_models {
   echo "===> test_llama_stack_openai_models: start"
   # shellcheck disable=SC2016
-  resp=$(curl -sS http://localhost:8321/v1/models)
+  resp=$(curl -4 -sS http://localhost:8321/v1/models)
   if echo "$resp" | grep -q "$INFERENCE_MODEL"; then
     echo "===> test_llama_stack_openai_models: pass"
     return
@@ -175,7 +179,7 @@ function test_llama_stack_chat_completion {
 function test_llama_stack_openai_chat_completion {
   echo "===> test_llama_stack_openai_chat_completion: start"
   # shellcheck disable=SC2016
-  resp=$(curl -sS -X POST http://localhost:8321/v1/chat/completions \
+  resp=$(curl -4 -sS -X POST http://localhost:8321/v1/chat/completions \
     -H "Content-Type: application/json" \
     -d "{\"messages\": [{\"role\": \"user\", \"content\": \"Hello\"}], \"model\": \"ramalama/$INFERENCE_MODEL\"}")
   if echo "$resp" | grep -q "choices"; then
@@ -198,7 +202,7 @@ function start_and_wait_for_llama_stack_ui {
   echo "Waiting for Streamlit UI to be ready..."
   for i in {1..30}; do
     echo "Attempt $i to connect to Streamlit UI..."
-    if curl -s http://localhost:8501 >/dev/null 2>&1; then
+    if curl -4 -s http://localhost:8501 >/dev/null 2>&1; then
       echo "Streamlit UI is up and responding on port 8501"
       return 0
     fi
@@ -221,7 +225,7 @@ function test_llama_stack_ui {
     return 1
   fi
 
-  resp=$(curl -sS http://localhost:8501)
+  resp=$(curl -4 -sS http://localhost:8501)
   if echo "$resp" | grep -q -i "streamlit\|html"; then
     echo "===> test_llama_stack_ui: pass"
     return 0

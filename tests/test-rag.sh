@@ -17,7 +17,7 @@ main() {
   echo "===> starting 'test-rag'..."
 
   # Check if services are already running (from previous tests)
-  if curl -s http://localhost:8321/v1/health >/dev/null 2>&1 && curl -s http://localhost:8080/health >/dev/null 2>&1; then
+  if curl -4 -s http://localhost:8321/v1/health >/dev/null 2>&1 && curl -s http://localhost:8080/health >/dev/null 2>&1; then
     echo "Using existing RamaLama and Llama Stack servers"
   else
     echo "Starting fresh servers for RAG test"
