@@ -172,6 +172,15 @@ wheels = [
 ]
 
 [[package]]
+name = "argcomplete"
+version = "3.6.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/38/61/0b9ae6399dd4a58d8c1b1dc5a27d6f2808023d0b5dd3104bb99f45a33ff6/argcomplete-3.6.3.tar.gz", hash = "sha256:62e8ed4fd6a45864acc8235409461b72c9a28ee785a2011cc5eb78318786c89c", size = 73754, upload-time = "2025-10-20T03:33:34.741Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/74/f5/9373290775639cb67a2fce7f629a1c240dce9f12fe927bc32b2736e16dfc/argcomplete-3.6.3-py3-none-any.whl", hash = "sha256:f5007b3a600ccac5d25bbce33089211dfd49eab4a7718da3f10e3082525a92ce", size = 43846, upload-time = "2025-10-20T03:33:33.021Z" },
+]
+
+[[package]]
 name = "asyncpg"
 version = "0.30.0"
 source = { registry = "https://pypi.org/simple" }
@@ -935,7 +944,7 @@ wheels = [
 
 [[package]]
 name = "llama-stack-api"
-version = "0.5.1"
+version = "0.7.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fastapi" },
@@ -945,9 +954,9 @@ dependencies = [
     { name = "opentelemetry-sdk" },
     { name = "pydantic" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/54/37/dc1c678a25a5bfdd66093b9d462c4d9027199e827ae5dbdbfda2d6718967/llama_stack_api-0.5.1.tar.gz", hash = "sha256:a841121d009f16652a136c1109130c6553fd3d0e24e5e2750c9f9abc1ccdb411", size = 126367, upload-time = "2026-02-19T19:05:13.134Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a6/ad/075bc5de56185aef74d0668f410b9e056f39bf382fc86e774dd4e2bb748a/llama_stack_api-0.7.0.tar.gz", hash = "sha256:67eac85150a31bfbfd186f845a14de3a0b067bdb08048ed4da2c675ce869f286", size = 135469, upload-time = "2026-04-01T20:55:55.336Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/df/41/c9c72d40777e34df43bc607e8adde322d4f480dbac6ee955e8a41e548778/llama_stack_api-0.5.1-py3-none-any.whl", hash = "sha256:4913b29a075c9ce24a9ded77b40cf95451c0d4cf1b97584a1cf7e521a9eda474", size = 151595, upload-time = "2026-02-19T19:05:11.426Z" },
+    { url = "https://files.pythonhosted.org/packages/df/2d/94ab50ee0ab83220efa9662157d330de03441efca0dfd88edbd6008a7a66/llama_stack_api-0.7.0-py3-none-any.whl", hash = "sha256:c98157bb531c800a6832cacb3f2e133e8c9360e00a71648c2035e11575c3437b", size = 159663, upload-time = "2026-04-01T20:55:53.561Z" },
 ]
 
 [[package]]
@@ -2200,6 +2209,21 @@ wheels = [
 ]
 
 [[package]]
+name = "ramalama"
+version = "0.18.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "argcomplete" },
+    { name = "jinja2" },
+    { name = "jsonschema" },
+    { name = "pyyaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/78/00/785b31f9458fbe12b33724e79ca25bb8f537d5c88873b9f1fad4b8f98df2/ramalama-0.18.0.tar.gz", hash = "sha256:18bb2af79d96468e3c306f11ee41e52bd29d5900b20627e3f8d147037801e92e", size = 192182, upload-time = "2026-03-19T16:27:39.984Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0f/15/85a83d6b8889ab493d9fbe733083eb2593239bd7affa621459d915608d85/ramalama-0.18.0-py3-none-any.whl", hash = "sha256:7c4f65d65c73e29d81d57dd1891202c7a82e4abfacc1fe055d788c6b3a9189a9", size = 204031, upload-time = "2026-03-19T16:27:38.289Z" },
+]
+
+[[package]]
 name = "ramalama-stack"
 source = { editable = "." }
 dependencies = [
@@ -2212,6 +2236,7 @@ dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
     { name = "llama-stack" },
+    { name = "llama-stack-api" },
     { name = "llama-stack-client" },
     { name = "mcp" },
     { name = "milvus-lite" },
@@ -2237,6 +2262,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "pre-commit" },
+    { name = "ramalama" },
 ]
 
 [package.metadata]
@@ -2250,6 +2276,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.115.12" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "llama-stack", specifier = "==0.7.0" },
+    { name = "llama-stack-api", specifier = "==0.7.0" },
     { name = "llama-stack-client", specifier = "==0.7.0" },
     { name = "mcp", specifier = ">=1.9.2" },
     { name = "milvus-lite", specifier = ">=2.5.1" },
@@ -2273,7 +2300,10 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "pre-commit", specifier = ">=3.0.4,<4.0" }]
+dev = [
+    { name = "pre-commit", specifier = ">=3.0.4,<4.0" },
+    { name = "ramalama", specifier = ">=0.18.0" },
+]
 
 [[package]]
 name = "referencing"

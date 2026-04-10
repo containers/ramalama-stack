@@ -31,7 +31,7 @@ function start_and_wait_for_ramalama_server {
 
 function start_and_wait_for_llama_stack_server {
   # Start llama stack run with logging to 'lls-$INFERENCE_MODEL_NO_COLON.log'
-  LLAMA_STACK_LOG_FILE="lls-$INFERENCE_MODEL_NO_COLON.log" nohup uv run llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml &
+  LLAMA_STACK_LOG_FILE="lls-$INFERENCE_MODEL_NO_COLON.log" RAMALAMA_URL=http://127.0.0.1:8080 nohup uv run llama stack run ~/.llama/distributions/ramalama/ramalama-run.yaml &
   LLS_PID=$!
   echo "Started Llama Stack server with PID: $LLS_PID"
 
@@ -66,7 +66,7 @@ function start_and_wait_for_llama_stack_container {
     -d \
     --net=host \
     --env INFERENCE_MODEL="$INFERENCE_MODEL" \
-    --env RAMALAMA_URL=http://0.0.0.0:8080 \
+    --env RAMALAMA_URL=http://127.0.0.1:8080 \
     --name llama-stack \
     --rm \
     quay.io/ramalama/llama-stack:latest
