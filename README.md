@@ -78,3 +78,9 @@ podman run -d --rm --network=container:ramalama --name=streamlit quay.io/redhat-
 > then run with `network=container:ramalama`.
 >
 > If running on Linux use `--network=host` or `-p 8501:8501` instead. The streamlit container will be able to access the ramalama endpoint with either.
+
+## Capabilities
+
+The quickstart above only exercises basic inference. `ramalama-stack` actually enables most of the Llama
+Stack APIs - RAG, web search, safety shields, evaluation, and more. See
+[docs/capabilities.md](docs/capabilities.md) for a tour of what's enabled and how to use it.
